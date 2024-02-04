@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, Dropdown, Modal } from "react-bootstrap";
-import { postData } from "../../../services/api";
+import { Button, Dropdown,  Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
+import { deleteAPI, postData } from "../../utils/Fetching";
 
 export default function Delete({ uuid }) {
 	const { setIsLoading } = useLoading();
@@ -11,14 +11,14 @@ export default function Delete({ uuid }) {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const postHandler = async () => {
+	const handleDelete = async () => {
 		handleClose();
 		try {
 			setIsLoading(true);
-			const res = await postData("teachers/" + uuid, "DELETE");
-			toast.success(res.message);
+			const res = await deleteAPI("/api/mahasiswa/" + uuid, "DELETE");
+			toast.success(res?.message);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error?.message);
 		} finally {
 			setIsLoading(false);
 		}
@@ -41,14 +41,14 @@ export default function Delete({ uuid }) {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Hapus Dosen</Modal.Title>
+					<Modal.Title>Hapus Tipe Penilaian</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>Tekan Hapus Untuk Melanjutkan</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="danger" onClick={postHandler}>
+					<Button variant="danger" onClick={handleDelete}>
 						Hapus
 					</Button>
 				</Modal.Footer>

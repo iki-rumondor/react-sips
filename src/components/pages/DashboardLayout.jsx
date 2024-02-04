@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
-import { getUserRole } from "../../services/utils";
-import { ProdiLinks } from "../layout/links/ProdiLinks";
 import { AdminLinks } from "../layout/links/AdminLinks";
 
 export default function DashboardLayout({ header, children }) {
-	const role = getUserRole();
-
 	return (
 		<>
 			<Navbar />
 			<Sidebar title={"i-Monev"} subtitle={"iM"}>
-				{role == "DEPARTMENT" ? <ProdiLinks /> : <AdminLinks />}
+				<AdminLinks />
 			</Sidebar>
 			<div className="main-content">
 				<section className="section">

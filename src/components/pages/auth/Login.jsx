@@ -1,39 +1,80 @@
-import React, { useEffect } from "react";
-import LoginForm from "./LoginForm";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import { postData } from "../../utils/Fetching";
 import toast from "react-hot-toast";
+import useLoading from "../../hooks/useLoading";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
-	const location = useLocation();
-	setTimeout(() => {
-		if (location.state?.error) {
-			toast.error(location.state?.error);
+export const Login = () => {
+	const [values, setValues] = useState({
+		username: "",
+		password: "",
+	});
+
+	const {setIsLoading} = useLoading(false);
+
+	const navigate = useNavigate()
+
+	const postHandler = async () => {
+		try {
+			setIsLoading(true)
+			const res = await postData("/api/signin", "POST", values)
+			sessionStorage.setItem("token", res.token)
+			return navigate("/")
+		} catch (error) {
+			toast.error(error)
+		} finally {
+			setIsLoading(false)
 		}
-	}, 500);
+	};
 
 	return (
-		<div>
-			<section className="section">
-				<div className="d-flex flex-wrap align-items-stretch">
-					<div className="d-flex align-items-center col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white">
-						<div className="p-4 m-auto">
-							<h2 className="text-dark">Login i-Monev</h2>
-							<p className="text-muted">
-								Silahkan masukkan username dan password untuk
-								masuk!
-							</p>
-							<LoginForm />
-						</div>
-					</div>
-					<div
-						className="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom"
-						style={{
-							backgroundImage:
-								'url("/src/assets/img/teknik-ung.jpg")',
-						}}
-					></div>
+		<div className="d-flex justify-content-center align-items-center">
+			<div className="col-12 col-lg-4">
+				<div className="login-brand">
+					{/* <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" className="shadow-light rounded-circle"/> */}
 				</div>
-			</section>
+				<div className="card card-primary">
+					<div className="card-header">
+						<h4>Masuk</h4>
+					</div>
+
+					<div className="card-body">
+						<Form.Group className="mb-3" controlId="username">
+							<Form.Label>Username</Form.Label>
+							<Form.Control
+								value={values.username}
+								type="text"
+								onChange={(e) =>
+									setValues({
+										...values,
+										username: e.target.value,
+									})
+								}
+							/>
+						</Form.Group>
+						<Form.Group className="mb-3" controlId="password">
+							<Form.Label>Password</Form.Label>
+							<Form.Control
+								value={values.password}
+								type="password"
+								onChange={(e) =>
+									setValues({
+										...values,
+										password: e.target.value,
+									})
+								}
+							/>
+						</Form.Group>
+						<Button onClick={postHandler} className="w-100 mt-2">
+							Masuk
+						</Button>
+					</div>
+				</div>
+				<div className="simple-footer">
+					Created at 2024 by Ilham Dwiki Putra Rumondor
+				</div>
+			</div>
 		</div>
 	);
 }

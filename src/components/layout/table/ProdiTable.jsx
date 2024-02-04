@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DefaultTable from "../../module/table/DefaultTable";
-import { fetchData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import EditProdi from "../../pages/prodi/EditProdi";

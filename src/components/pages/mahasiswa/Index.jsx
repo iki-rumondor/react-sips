@@ -1,41 +1,47 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
-import useLoading from "../../hooks/useLoading";
-import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
+import { Button, Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { fetchData } from "../../../services/api";
 import Create from "./Create";
-import Delete from "./Delete";
+import { postData } from "../../utils/Fetching";
+import Import from "./Import";
+import Detail from "./Detail";
 import Edit from "./Edit";
+import useLoading from "../../hooks/useLoading";
+import Delete from "./Delete";
 
-export default function Laboratory() {
-	const { isLoading } = useLoading();
-	const [values, setValues] = useState(null);
+export default function Mahasiswa() {
+	const [values, setValues] = useState([])
+	const {isLoading} = useLoading()
 
-	const loadHandler = async () => {
+	const handleLoad = async () => {
 		try {
-			const res = await fetchData("laboratories");
+			const res = await postData("/api/mahasiswa", "GET");
 			setValues(res.data);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		}
 	};
 
 	useEffect(() => {
-		loadHandler();
+		handleLoad();
 	}, [isLoading]);
 
 	return (
 		<>
-			<DashboardLayout header={"Laboratorium"}>
-				<Create />
+			<DashboardLayout header={"Mahasiswa"}>
+				<div className="mb-3">
+					<Import />
+				</div>
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
 							<thead>
 								<tr>
 									<th>No</th>
+									<th>Nim</th>
 									<th>Nama</th>
+									<th>Angkatan</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -44,7 +50,9 @@ export default function Laboratory() {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.name}</td>
+											<td>{item.nim}</td>
+											<td>{item.nama}</td>
+											<td>{item.angkatan}</td>
 											<td>
 												<Dropdown>
 													<Dropdown.Toggle
@@ -56,6 +64,9 @@ export default function Laboratory() {
 													</Dropdown.Toggle>
 
 													<Dropdown.Menu>
+														<Detail
+															uuid={item.uuid}
+														/>
 														<Edit
 															uuid={item.uuid}
 														/>

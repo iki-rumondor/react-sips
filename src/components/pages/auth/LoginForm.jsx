@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import useLoading from "../../hooks/useLoading";
 import toast from "react-hot-toast";
-import { postData } from "../../../services/api";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function LoginForm() {

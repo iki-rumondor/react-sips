@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import { Button, Form } from "react-bootstrap";
-import { postData } from "../../../services/api";
 
 export default function Credential() {
 	const location = useLocation();
