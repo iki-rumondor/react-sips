@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
+import useLoading from "../../hooks/useLoading";
 import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { fetchAPI } from "../../utils/Fetching";
-import Import from "./Import";
-import Detail from "./Detail";
-import Edit from "./Edit";
-import useLoading from "../../hooks/useLoading";
 import Delete from "./Delete";
+import Edit from "./Edit";
+import { fetchAPI } from "../../utils/Fetching";
+import { Create } from "./Create";
 
-export default function Mahasiswa() {
-	const [values, setValues] = useState([])
-	const {isLoading} = useLoading()
+export default function TahunAjaran() {
+	const [values, setValues] = useState([]);
+	const { isLoading } = useLoading();
 
 	const handleLoad = async () => {
 		try {
-			const res = await fetchAPI("/api/mahasiswa");
-			setValues(res?.data);
+			const res = await fetchAPI("/api/tahun_ajaran");
+			setValues(res.data);
 		} catch (error) {
-			toast.error(error?.message);
+			toast.error(error);
 		}
 	};
 
@@ -28,19 +27,16 @@ export default function Mahasiswa() {
 
 	return (
 		<>
-			<DashboardLayout header={"Mahasiswa"}>
-				<div className="mb-3">
-					<Import />
-				</div>
+			<DashboardLayout header={"Tahun Ajaran"}>
+				<Create />
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Nim</th>
-									<th>Nama</th>
-									<th>Angkatan</th>
+									<th>Tahun</th>
+									<th>Semester</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -49,9 +45,8 @@ export default function Mahasiswa() {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.nim}</td>
-											<td>{item.nama}</td>
-											<td>{item.angkatan}</td>
+											<td>{item.tahun}</td>
+											<td>{item.semester}</td>
 											<td>
 												<Dropdown>
 													<Dropdown.Toggle
@@ -63,9 +58,6 @@ export default function Mahasiswa() {
 													</Dropdown.Toggle>
 
 													<Dropdown.Menu>
-														<Detail
-															uuid={item.uuid}
-														/>
 														<Edit
 															uuid={item.uuid}
 														/>

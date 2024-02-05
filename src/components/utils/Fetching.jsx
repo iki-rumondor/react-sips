@@ -28,7 +28,7 @@ export const postFile = async (endpoint, method, data) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data : error.message;
+		throw error.response ? error.response.data.message : error.message;
 	}
 };
 
@@ -45,7 +45,7 @@ export const postData = async (endpoint, method, data = null) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data : error;
+		throw error.response ? error.response.data.message : error.message;
 	}
 };
 
@@ -60,7 +60,22 @@ export const deleteAPI = async (endpoint) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data : error;
+		throw error.response ? error.response.data.message : error.message;
+	}
+};
+
+export const fetchAPI = async (endpoint) => {
+	try {
+		const response = await axios({
+			method: "GET",
+			url: `${baseAPIUrl}${endpoint}`,
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		throw error.response ? error.response.data.message : error.message;
 	}
 };
 

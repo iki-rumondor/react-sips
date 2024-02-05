@@ -33,12 +33,13 @@ export default function Edit({ uuid }) {
 			const res = await postData("/api/mahasiswa/" + uuid, "PUT", values)
 			toast.success(res?.message)
 		} catch (error) {
-			toast.error(error?.message)
+			toast.error(error)
 		} finally {
 			setIsLoading(false)
 		}
 
 	};
+	
 
 	const handleLoad = async () => {
 		try{

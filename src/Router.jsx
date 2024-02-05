@@ -4,16 +4,18 @@ import { Login } from "./components/pages/auth/Login";
 import { RequireAuth } from "./components/utils/RequireAuth";
 import { RequireLogout } from "./components/utils/RequireLogout";
 import Logout from "./components/pages/auth/Logout";
-import Subject from "./components/pages/mahasiswa/Index";
 import { Home } from "./components/pages/dashboard/Index";
+import Mahasiswa from "./components/pages/mahasiswa/Index";
+import TahunAjaran from "./components/pages/tahun_ajaran/Index";
 
 export const Router = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route element={<RequireAuth />}>
-					<Route path="/mahasiswa" element={<Subject />} />
 					<Route path="/" element={<Home />}></Route>
+					<Route path="/tahun-ajaran" element={<TahunAjaran />} />
+					<Route path="/mahasiswa" element={<Mahasiswa />} />
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>

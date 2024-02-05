@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, Dropdown,  Modal } from "react-bootstrap";
+import { Button, Dropdown, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
-import { deleteAPI, postData } from "../../utils/Fetching";
+import { deleteAPI } from "../../utils/Fetching";
 
 export default function Delete({ uuid }) {
 	const { setIsLoading } = useLoading();
@@ -15,7 +15,7 @@ export default function Delete({ uuid }) {
 		handleClose();
 		try {
 			setIsLoading(true);
-			const res = await deleteAPI("/api/mahasiswa/" + uuid);
+			const res = await deleteAPI("/api/tahun_ajaran/" + uuid);
 			toast.success(res?.message);
 		} catch (error) {
 			toast.error(error);
@@ -41,7 +41,7 @@ export default function Delete({ uuid }) {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Hapus Tipe Penilaian</Modal.Title>
+					<Modal.Title>Hapus Tahun Ajaran</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>Tekan Hapus Untuk Melanjutkan</Modal.Body>
 				<Modal.Footer>

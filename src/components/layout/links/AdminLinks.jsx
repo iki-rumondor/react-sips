@@ -12,10 +12,7 @@ export const AdminLinks = () => {
 			<Sidebar.Link path={"/mahasiswa"} icon={"fa-user"}>
 				Mahasiswa
 			</Sidebar.Link>
-			<Sidebar.Link path={"/prodi"} icon={"fa-user"}>
-				Program Studi
-			</Sidebar.Link>
-			<Sidebar.Link path={"/academic-years"} icon={"fa-user"}>
+			<Sidebar.Link path={"/tahun-ajaran"} icon={"fa-user"}>
 				Tahun Ajaran
 			</Sidebar.Link>
 		</>
