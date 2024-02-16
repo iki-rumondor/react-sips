@@ -7,6 +7,7 @@ import Logout from "./components/pages/auth/Logout";
 import { Home } from "./components/pages/dashboard/Index";
 import Mahasiswa from "./components/pages/mahasiswa/Index";
 import TahunAjaran from "./components/pages/tahun_ajaran/Index";
+import Percepatan from "./components/pages/modul/Index";
 
 export const Router = () => {
 	return (
@@ -16,6 +17,7 @@ export const Router = () => {
 					<Route path="/" element={<Home />}></Route>
 					<Route path="/tahun-ajaran" element={<TahunAjaran />} />
 					<Route path="/mahasiswa" element={<Mahasiswa />} />
+					<Route path="/percepatan" element={<Percepatan />} />
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>
