@@ -1,15 +1,14 @@
 import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { getUserRole } from '../../services/utils';
+import { getUserRole } from './Helpers';
 
-export const IsAdmin = () => {
+export const RoleAuth = ({name}) => {
 	const location = useLocation();
-
-	const role = getUserRole();
-	if (role != "ADMIN") {
+	const role = sessionStorage.getItem("role")
+	if (role != name) {
 		return (
 			<Navigate
-				to={"/"}
+				to={"/home"}
 				state={{ path: location.pathname, error: "Forbidden Page" }}
 			/>
 		);

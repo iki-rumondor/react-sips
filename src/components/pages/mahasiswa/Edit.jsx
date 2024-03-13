@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
-import { postData, useGetData } from "../../utils/Fetching";
+import { fetchAPI, postData, useGetData } from "../../utils/Fetching";
 
 export default function Edit({ uuid }) {
 	const { setIsLoading } = useLoading();
 	const [show, setShow] = useState(false);
+	const [pembimbing, setPembimbing] = useState(null);
 	const [values, setValues] = useState({
 		nim: "",
 		nama: "",
@@ -14,6 +15,7 @@ export default function Edit({ uuid }) {
 		total_sks: "",
 		ipk: "",
 		jumlah_error: "",
+		pembimbing_uuid: "",
 	});
 
 	const handleClose = () => setShow(false);
@@ -41,10 +43,20 @@ export default function Edit({ uuid }) {
 
 	const handleLoad = async () => {
 		try {
+			const p_res = await fetchAPI("/api/pembimbing");
+			setPembimbing(p_res.data);
 			const res = await postData("/api/mahasiswa/" + uuid, "GET");
-			setValues(res.data);
+			setValues({
+				nim: res.data.nim,
+				nama: res.data.nama,
+				angkatan: res.data.angkatan,
+				total_sks: res.data.total_sks,
+				ipk: res.data.ipk,
+				jumlah_error: res.data.jumlah_error,
+				pembimbing_uuid: res.data.pembimbing.uuid,
+			});
 		} catch (error) {
-			toast.error(error);
+			toast.error(error.message);
 		}
 	};
 
@@ -73,6 +85,28 @@ export default function Edit({ uuid }) {
 				</Modal.Header>
 				<form onSubmit={handleSubmit}>
 					<Modal.Body>
+						<Form.Group
+							controlId="pembimbing_uuid"
+							className="mb-3"
+						>
+							<Form.Label>Penasihat Akademik</Form.Label>
+							<Form.Control
+								as="select"
+								name="pembimbing_uuid"
+								value={values.pembimbing_uuid}
+								onChange={handleChange}
+							>
+								<option value="" disabled>
+									Pilih PA
+								</option>
+								{pembimbing &&
+									pembimbing.map((item, idx) => (
+										<option key={idx} value={item.uuid}>
+											{item.nama}
+										</option>
+									))}
+							</Form.Control>
+						</Form.Group>
 						<Form.Group className="mb-3" controlId="nim">
 							<Form.Label>Nim</Form.Label>
 							<Form.Control

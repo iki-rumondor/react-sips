@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Button, Dropdown, Form, Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { ListKeyValue } from "../../module/List";
-import useLoading from "../../hooks/useLoading";
-import { postData } from "../../utils/Fetching";
+import { fetchAPI } from "../../utils/Fetching";
 
-export default function Detail({ uuid }) {
+export default function DetailMahasiswa({ uuid }) {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
@@ -17,7 +16,7 @@ export default function Detail({ uuid }) {
 
 	const handleLoad = async () => {
 		try {
-			const res = await postData("/api/mahasiswa/" + uuid, "GET");
+			const res = await fetchAPI("/api/mahasiswa/" + uuid);
 			setValues(res.data);
 		} catch (error) {
 			toast.error(error?.message);
@@ -26,9 +25,9 @@ export default function Detail({ uuid }) {
 
 	return (
 		<>
-			<Dropdown.Item className="text-info" href="#" onClick={handleShow}>
+			<Button variant="info" href="#" onClick={handleShow}>
 				Detail
-			</Dropdown.Item>
+			</Button>
 
 			<Modal
 				show={show}

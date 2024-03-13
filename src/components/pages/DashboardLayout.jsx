@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import { AdminLinks } from "../layout/links/AdminLinks";
+import "/src/assets/css/style.css";
+import "/src/assets/css/components.css";
+import { MahasiswaLinks } from "../layout/links/MahasiswaLinks";
+import { PenasihatLinks } from "../layout/links/PenasihatLinks";
 
 export default function DashboardLayout({ header, children }) {
+	const [links, setLinks] = useState();
+	const role = sessionStorage.getItem("role");
+
+	useEffect(() => {
+		switch (role) {
+			case "MAHASISWA":
+				setLinks(<MahasiswaLinks />);
+				break;
+			case "PA":
+				setLinks(<PenasihatLinks />);
+				break;
+			case "HEAD":
+				setLinks(<HeadLinks />);
+				break;
+			default:
+				setLinks(<AdminLinks />);
+		}
+	}, []);
 	return (
 		<>
 			<Navbar />
-			<Sidebar title={"i-Monev"} subtitle={"iM"}>
-				<AdminLinks />
+			<Sidebar title={"SIPPP"} subtitle={"SP"}>
+				{links}
 			</Sidebar>
 			<div className="main-content">
 				<section className="section">

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { postData } from "../../utils/Fetching";
+import { fetchAPI, postData } from "../../utils/Fetching";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import { useNavigate } from "react-router-dom";
+import "/src/assets/css/style.css"
+import "/src/assets/css/components.css"
+import { jwtDecode } from "jwt-decode";
 
 export const Login = () => {
 	const [values, setValues] = useState({
@@ -11,20 +14,24 @@ export const Login = () => {
 		password: "",
 	});
 
-	const {setIsLoading} = useLoading(false);
+	const { setIsLoading } = useLoading(false);
 
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const postHandler = async () => {
 		try {
-			setIsLoading(true)
-			const res = await postData("/api/signin", "POST", values)
-			sessionStorage.setItem("token", res.token)
-			return navigate("/")
+			setIsLoading(true);
+			const res = await postData("/api/signin", "POST", values);
+			const uuid = jwtDecode(res.token).uuid
+			const userData = await fetchAPI(`/api/user/${uuid}`)
+			sessionStorage.setItem("role", userData.data.role);
+			sessionStorage.setItem("uuid", userData.data.uuid);
+			sessionStorage.setItem("token", res.token);
+			return navigate("/home");
 		} catch (error) {
-			toast.error(error)
+			toast.error(error.message);
 		} finally {
-			setIsLoading(false)
+			setIsLoading(false);
 		}
 	};
 
@@ -72,9 +79,9 @@ export const Login = () => {
 					</div>
 				</div>
 				<div className="simple-footer">
-					Created at 2024 by Ilham Dwiki Putra Rumondor
+					Created at 2024 by Masita Fitria Manangin
 				</div>
 			</div>
 		</div>
 	);
-}
+};

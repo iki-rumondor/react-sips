@@ -2,6 +2,7 @@ import DashboardLayout from "../DashboardLayout";
 import { BarChart } from "./modules/BarChart";
 import { CardDashboard } from "./modules/Card";
 
+
 export const Home = () => {
 	return (
 		<>

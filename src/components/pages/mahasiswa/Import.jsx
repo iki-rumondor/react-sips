@@ -3,7 +3,7 @@ import { Button, Form, Modal, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import { convertToMB } from "../../utils/Helpers";
-import { postFile } from "../../utils/Fetching";
+import { fetchAPI, postFile } from "../../utils/Fetching";
 
 export default function Import() {
 	const { setIsLoading } = useLoading();
@@ -11,9 +11,14 @@ export default function Import() {
 	const [showFail, setShowFail] = useState(false);
 	const [failed, setFailed] = useState(null);
 	const [file, setFile] = useState(null);
+	const [pembimbingUuid, setPembimbingUuid] = useState("");
+	const [pembimbing, setPembimbing] = useState(null);
 
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleShow = () => {
+		handleLoad();
+		setShow(true);
+	};
 
 	const handleCloseFail = () => setShowFail(false);
 	const handleShowFail = () => setShowFail(true);
@@ -21,6 +26,15 @@ export default function Import() {
 	const handleFileChange = (e) => {
 		if (e.target.files) {
 			setFile(e.target.files[0]);
+		}
+	};
+
+	const handleLoad = async () => {
+		try {
+			const res = await fetchAPI("/api/pembimbing");
+			setPembimbing(res.data);
+		} catch (error) {
+			toast.error(error?.message);
 		}
 	};
 
@@ -34,6 +48,7 @@ export default function Import() {
 
 		const formData = new FormData();
 		formData.append("mahasiswa", file);
+		formData.append("pembimbing_uuid", pembimbingUuid);
 
 		try {
 			setIsLoading(true);
@@ -68,6 +83,26 @@ export default function Import() {
 					<Modal.Title>Import Data Mahasiswa</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<Form.Group controlId="pembimbing" className="mb-3">
+						<Form.Label>Penasihat Akademik</Form.Label>
+						<Form.Control
+							as="select"
+							value={pembimbingUuid}
+							onChange={(e) => {
+								setPembimbingUuid(e.target.value);
+							}}
+						>
+							<option value="" disabled>
+								Pilih PA
+							</option>
+							{pembimbing &&
+								pembimbing.map((item, idx) => (
+									<option key={idx} value={item.uuid}>
+										{item.nama}
+									</option>
+								))}
+						</Form.Control>
+					</Form.Group>
 					<Form.Group className="mb-3" controlId="code">
 						<Form.Label>Pilih File</Form.Label>
 						<Form.Control type="file" onChange={handleFileChange} />

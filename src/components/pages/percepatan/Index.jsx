@@ -11,13 +11,10 @@ export default function Percepatan() {
 	const [show, setShow] = useState(false);
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [values, setValues] = useState({
-		angkatan: "",
 		total_sks: "",
 		ipk: "",
 		jumlah_error: "",
 	});
-
-	const years = generateYearArray();
 
 	const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
@@ -47,7 +44,7 @@ export default function Percepatan() {
 			toast.success(res.message);
 			setIsSuccess(true);
 		} catch (error) {
-			toast.error(error);
+			toast.error(error.message);
 		} finally {
 			setIsLoading(false);
 		}
@@ -72,6 +69,7 @@ export default function Percepatan() {
 										<th>No</th>
 										<th>NIM</th>
 										<th>Nama Mahasiswa</th>
+										<th>Angkatan</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -80,6 +78,7 @@ export default function Percepatan() {
 											<td>{idx + 1}</td>
 											<td>{item.nim}</td>
 											<td>{item.nama}</td>
+											<td>{item.angkatan}</td>
 										</tr>
 									))}
 								</tbody>
@@ -100,25 +99,6 @@ export default function Percepatan() {
 								<Modal.Title>Tentukan Aturan</Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
-								<Form.Group
-									className="mb-3"
-									controlId="angkatan"
-								>
-									<Form.Label>Angkatan</Form.Label>
-									<Form.Control
-										name={"angkatan"}
-										value={values?.angkatan}
-										as="select"
-										onChange={handleChange}
-									>
-										<option disabled value={""}>
-											Pilih Angkatan
-										</option>
-										{years.map((item, idx) => (
-											<option key={idx}>{item}</option>
-										))}
-									</Form.Control>
-								</Form.Group>
 								<Form.Group
 									className="mb-3"
 									controlId="total_sks"

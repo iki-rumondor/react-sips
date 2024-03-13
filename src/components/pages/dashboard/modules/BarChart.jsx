@@ -13,7 +13,7 @@ const ChartModel = ({tipe}) => {
 			position: 'top',
 		},
 	};
-	
+
 	const series = [
 		{
 			data: [30, 40, 45, 10],
@@ -30,26 +30,26 @@ export const BarChart = ({tipe}) => {
 				<div className="card-header">
 					<h4>Jumlah Ketersediaan</h4>
 					<div className="card-header-action">
-						<div class="dropdown">
+						<div className="dropdown">
 							<a
 								href="#"
-								class="dropdown-toggle btn btn-primary"
+								className="dropdown-toggle btn btn-primary"
 								data-toggle="dropdown"
 								aria-expanded="false"
 							>
 								Teknik Informatika
 							</a>
 							<div
-								class="dropdown-menu dropdown-menu-right"
+								className="dropdown-menu dropdown-menu-right"
 								x-placement="bottom-end"
 							>
-								<a href="#" class="dropdown-item active">
+								<a href="#" className="dropdown-item active">
 									RPS
 								</a>
-								<a href="#" class="dropdown-item">
+								<a href="#" className="dropdown-item">
 									Alat Praktikum
 								</a>
-								<a href="#" class="dropdown-item">
+								<a href="#" className="dropdown-item">
 									Modul Praktikum
 								</a>
 							</div>

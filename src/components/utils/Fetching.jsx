@@ -3,6 +3,7 @@ import useSWR from "swr";
 
 const accessToken = sessionStorage.getItem("token");
 const baseAPIUrl = "http://localhost:8080";
+const pdfAPIUrl = "http://localhost:8000/api/pdf/sips";
 
 const fetcher = async (url) => {
 	const response = await fetch(`${baseAPIUrl}${url}`, {
@@ -28,7 +29,7 @@ export const postFile = async (endpoint, method, data) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw error.response ? error.response.data : error;
 	}
 };
 
@@ -45,7 +46,7 @@ export const postData = async (endpoint, method, data = null) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw error.response ? error.response.data : error;
 	}
 };
 
@@ -75,7 +76,7 @@ export const fetchAPI = async (endpoint) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw error.response ? error.response.data : error;
 	}
 };
 
@@ -86,4 +87,23 @@ export const useGetData = (endpoint) => {
 		isLoading,
 		isError: error,
 	};
+};
+
+export const pdfAPI = async (endpoint, data) => {
+	try {
+		const response = await axios({
+			method: "POST",
+			url: `${pdfAPIUrl}${endpoint}`,
+			headers: {
+				"Content-Type": "application/pdf",
+			},
+			responseType: "blob",
+			data: data,
+		});
+		const url = window.URL.createObjectURL(response.data);
+		window.open(url, "_blank");
+		return response.data;
+	} catch (error) {
+		throw error.response ? error.response.data : error;
+	}
 };

@@ -23,7 +23,7 @@ export function MessageList() {
 	);
 }
 
-export const ListKeyValue = ({keys, value}) => {
+export const ListKeyValue = ({ keys, value }) => {
 	return (
 		<div className="row mb-2">
 			<p className="col-6">{keys}</p>
@@ -31,5 +31,14 @@ export const ListKeyValue = ({keys, value}) => {
 				<strong>{value}</strong>
 			</p>
 		</div>
+	);
+};
+
+export const ListGroupKeyValue = ({ keys, value }) => {
+	return (
+		<li className="list-group-item d-flex justify-content-between align-items-center">
+			<span>{keys}</span>
+			<span>{value}</span>
+		</li>
 	);
 };
