@@ -59,6 +59,7 @@ export const Login = () => {
 									})
 								}
 							/>
+							<small>Gunakan NIM bagi mahasiswa atau NIP bagi dosen</small>
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="password">
 							<Form.Label>Password</Form.Label>

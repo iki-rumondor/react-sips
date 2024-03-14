@@ -11,10 +11,25 @@ export const ChartModel = ({ categories, series, type }) => {
 		xaxis: {
 			categories: categories,
 		},
-		colors: ['#A5DD9B', '#EE4266']
 	};
 
-
-
 	return <Chart options={options} series={series} type={type} />;
+};
+
+export const DonutChart = ({ labels, series }) => {
+	const options = {
+		labels,
+		plotOptions: {
+			pie: {
+				donut:{
+					size: '50%',
+					labels: {
+						show: true
+					},
+				}
+			}
+		}
+	};
+
+	return <Chart options={options} series={series} type={"donut"} />;
 };
