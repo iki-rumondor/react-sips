@@ -6,6 +6,7 @@ import "/src/assets/css/style.css";
 import "/src/assets/css/components.css";
 import { MahasiswaLinks } from "../layout/links/MahasiswaLinks";
 import { PenasihatLinks } from "../layout/links/PenasihatLinks";
+import { KaprodiLinks } from "../layout/links/KaprodiLinks";
 
 export default function DashboardLayout({ header, children }) {
 	const [links, setLinks] = useState();
@@ -19,8 +20,8 @@ export default function DashboardLayout({ header, children }) {
 			case "PA":
 				setLinks(<PenasihatLinks />);
 				break;
-			case "HEAD":
-				setLinks(<HeadLinks />);
+			case "KAPRODI":
+				setLinks(<KaprodiLinks />);
 				break;
 			default:
 				setLinks(<AdminLinks />);

@@ -50,7 +50,6 @@ export default function Kelas() {
 		try {
 			setIsLoading(true);
 			const res = await pdfAPI("/kelas", mahasiswa);
-			console.log(res);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -102,11 +101,16 @@ export default function Kelas() {
 									>
 										<option value="">Pilih Kelas</option>
 										{classes &&
-											classes.map((item, idx) => (
-												<option key={idx}>
-													{item}
-												</option>
-											))}
+											classes.map((item, idx) => {
+												if (item == "") {
+													return;
+												}
+												return (
+													<option key={idx}>
+														{item}
+													</option>
+												);
+											})}
 									</Form.Control>
 								</Form.Group>
 							</div>

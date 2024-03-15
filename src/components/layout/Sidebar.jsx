@@ -7,10 +7,10 @@ export default function Sidebar({ children, title, subtitle }) {
 		<div className="main-sidebar sidebar-style-2">
 			<aside id="sidebar-wrapper">
 				<div className="sidebar-brand">
-					<a href="index.html">{title}</a>
+					<a href="/">{title}</a>
 				</div>
 				<div className="sidebar-brand sidebar-brand-sm">
-					<a href="index.html">{subtitle}</a>
+					<a href="/">{subtitle}</a>
 				</div>
 				<ul className="sidebar-menu">{children}</ul>
 			</aside>

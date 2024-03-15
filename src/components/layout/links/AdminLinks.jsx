@@ -5,7 +5,7 @@ export const AdminLinks = () => {
 	return (
 		<>
 			<Sidebar.HeaderLink>Admin</Sidebar.HeaderLink>
-			<Sidebar.Link path={"/home"} icon={"fa-user"}>
+			<Sidebar.Link path={"/home/admin"} icon={"fa-user"}>
 				Dashboard
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Master</Sidebar.HeaderLink>
@@ -14,9 +14,6 @@ export const AdminLinks = () => {
 			</Sidebar.Link>
 			<Sidebar.Link path={"/pembimbing"} icon={"fa-user"}>
 				Penasihat Akademik
-			</Sidebar.Link>
-			<Sidebar.Link path={"/tahun-ajaran"} icon={"fa-user"}>
-				Tahun Ajaran
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Proses</Sidebar.HeaderLink>
 			<Sidebar.Link path={"/percepatan"} icon={"fa-user"}>

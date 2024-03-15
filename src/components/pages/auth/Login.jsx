@@ -4,8 +4,8 @@ import { fetchAPI, postData } from "../../utils/Fetching";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import { useNavigate } from "react-router-dom";
-import "/src/assets/css/style.css"
-import "/src/assets/css/components.css"
+import "/src/assets/css/style.css";
+import "/src/assets/css/components.css";
 import { jwtDecode } from "jwt-decode";
 
 export const Login = () => {
@@ -22,8 +22,8 @@ export const Login = () => {
 		try {
 			setIsLoading(true);
 			const res = await postData("/api/signin", "POST", values);
-			const uuid = jwtDecode(res.token).uuid
-			const userData = await fetchAPI(`/api/user/${uuid}`)
+			const uuid = jwtDecode(res.token).uuid;
+			const userData = await fetchAPI(`/api/user/${uuid}`);
 			sessionStorage.setItem("role", userData.data.role);
 			sessionStorage.setItem("uuid", userData.data.uuid);
 			sessionStorage.setItem("token", res.token);
@@ -39,7 +39,14 @@ export const Login = () => {
 		<div className="d-flex justify-content-center align-items-center">
 			<div className="col-12 col-lg-4">
 				<div className="login-brand">
-					{/* <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" className="shadow-light rounded-circle"/> */}
+					<a href="/">
+						<img
+							src="/src/assets/img/stisla-fill.svg"
+							alt="logo"
+							width="100"
+							className="shadow-light rounded-circle"
+						/>
+					</a>
 				</div>
 				<div className="card card-primary">
 					<div className="card-header">
@@ -59,7 +66,9 @@ export const Login = () => {
 									})
 								}
 							/>
-							<small>Gunakan NIM bagi mahasiswa atau NIP bagi dosen</small>
+							<small>
+								Gunakan NIM bagi mahasiswa atau NIP bagi dosen
+							</small>
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="password">
 							<Form.Label>Password</Form.Label>

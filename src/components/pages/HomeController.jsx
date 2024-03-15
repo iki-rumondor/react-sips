@@ -15,6 +15,6 @@ export const HomeController = () => {
 		return;
 	}
 
-	window.location.href = "/home/department";
+	window.location.href = "/home/kaprodi";
 	return;
 };

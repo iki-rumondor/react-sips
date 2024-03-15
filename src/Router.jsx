@@ -17,6 +17,10 @@ import { DashboardMahasiswa } from "./components/pages/dashboard/Mahasiswa";
 import { DashboardPenasihat } from "./components/pages/dashboard/Penasihat";
 import { KelasPenasihat } from "./components/pages/penasihat/Kelas";
 import PenasihatMahasiswa from "./components/pages/penasihat/Mahasiswa";
+import { DashboardKaprodi } from "./components/pages/dashboard/Kaprodi";
+import MahasiswaAll from "./components/pages/kaprodi/Mahasiswa";
+import { KelasAll } from "./components/pages/kaprodi/Kelas";
+import NewLandingPage from "./components/pages/landing/New";
 
 export const Router = () => {
 	return (
@@ -24,7 +28,7 @@ export const Router = () => {
 			<Routes>
 				<Route element={<RequireAuth />}>
 					<Route element={<RoleAuth name={"ADMIN"} />}>
-						<Route path="/home/admin" element={<Home />}></Route>
+						<Route path="/home/admin" Component={Home}></Route>
 						<Route path="/tahun-ajaran" element={<TahunAjaran />} />
 						<Route path="/mahasiswa" element={<Mahasiswa />} />
 						<Route path="/percepatan" element={<Percepatan />} />
@@ -32,12 +36,35 @@ export const Router = () => {
 						<Route path="/pembimbing" element={<Pembimbing />} />
 					</Route>
 					<Route element={<RoleAuth name={"MAHASISWA"} />}>
-						<Route path="/home/mahasiswa" element={<DashboardMahasiswa />}></Route>
+						<Route
+							path="/home/mahasiswa"
+							element={<DashboardMahasiswa />}
+						/>
 					</Route>
 					<Route element={<RoleAuth name={"PA"} />}>
-						<Route path="/home/penasihat" element={<DashboardPenasihat />}></Route>
-						<Route path="/penasihat/kelas" element={<KelasPenasihat />}></Route>
-						<Route path="/penasihat/mahasiswa" element={<PenasihatMahasiswa />}></Route>
+						<Route
+							path="/home/penasihat"
+							element={<DashboardPenasihat />}
+						/>
+						<Route
+							path="/penasihat/kelas"
+							element={<KelasPenasihat />}
+						/>
+						<Route
+							path="/penasihat/mahasiswa"
+							element={<PenasihatMahasiswa />}
+						/>
+					</Route>
+					<Route element={<RoleAuth name={"KAPRODI"} />}>
+						<Route
+							path="/home/kaprodi"
+							element={<DashboardKaprodi />}
+						/>
+						<Route
+							path="/kaprodi/mahasiswa"
+							element={<MahasiswaAll />}
+						/>
+						<Route path="/kaprodi/kelas" element={<KelasAll />} />
 					</Route>
 					<Route path="/home" element={<HomeController />} />
 					<Route path="/logout" element={<Logout />} />
@@ -45,7 +72,7 @@ export const Router = () => {
 				<Route element={<RequireLogout />}>
 					<Route path="/login" element={<Login />} />
 				</Route>
-				<Route path="/" element={<LandingPage />} />
+				<Route path="/" Component={NewLandingPage} />
 			</Routes>
 		</BrowserRouter>
 	);

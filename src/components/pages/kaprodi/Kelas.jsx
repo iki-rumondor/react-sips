@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, CardBody, Form, Table } from "react-bootstrap";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
 import toast from "react-hot-toast";
-import { generateYearArray, getUserUuid } from "../../utils/Helpers";
+import { filterMahasiswa, generateYearArray } from "../../utils/Helpers";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 
-export const KelasPenasihat = () => {
+export const KelasAll = () => {
 	const { setIsLoading } = useLoading();
 	const [mahasiswa, setMahasiswa] = useState(null);
+	const [values, setValues] = useState(null);
 	const [classes, setClasses] = useState(null);
-	const years = generateYearArray(3);
-	const currentYear = new Date().getFullYear();
 	const [options, setOptions] = useState({
 		angkatan: "",
 		kelas: "",
 	});
 
-	const uuid = getUserUuid();
+	const years = generateYearArray(3);
+	const currentYear = new Date().getFullYear();
 
 	const handleChangeOptions = (e) => {
 		setOptions({ ...options, [e.target.name]: e.target.value });
@@ -26,12 +26,10 @@ export const KelasPenasihat = () => {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(
-				`/api/mahasiswa/penasihat/${uuid}?min_angkatan=${
-					currentYear - 3
-				}&angkatan=${options.angkatan}&kelas=${options.kelas}`
+			const res = await fetchAPI(`/api/mahasiswa`);
+			setMahasiswa(
+				filterMahasiswa("pembagian_kelas", res.data, currentYear - 3)
 			);
-			setMahasiswa(res.data);
 			const classes = await fetchAPI("/api/classes");
 			setClasses(classes.data);
 		} catch (error) {
@@ -39,6 +37,10 @@ export const KelasPenasihat = () => {
 		} finally {
 			setIsLoading(false);
 		}
+	};
+
+	const handleFilter = () => {
+		setValues(filterMahasiswa("kelas", mahasiswa, options));
 	};
 
 	const handlePrint = async () => {
@@ -54,6 +56,10 @@ export const KelasPenasihat = () => {
 
 	useEffect(() => {
 		handleLoad();
+	}, []);
+
+	useEffect(() => {
+		handleFilter();
 	}, [options]);
 
 	return (
@@ -105,35 +111,47 @@ export const KelasPenasihat = () => {
 					</div>
 				</CardBody>
 			</Card>
-			{mahasiswa && (
-				<Card>
-					<CardBody>
-						<Button className="mb-3" onClick={handlePrint}>
-							<i className="fas fa-print"></i>{" "}
-							<span className="ml-2">Cetak</span>
-						</Button>
-						<Table className="table-bordered">
-							<thead>
-								<tr>
-									<th>No</th>
-									<th>NIM</th>
-									<th>Nama Mahasiswa</th>
-									<th>Kelas</th>
-								</tr>
-							</thead>
-							<tbody>
-								{mahasiswa.map((item, idx) => (
-									<tr key={idx}>
-										<td>{idx + 1}</td>
-										<td>{item.nim}</td>
-										<td>{item.nama}</td>
-										<td>{item.kelas}</td>
+			{values?.length > 0 ? (
+				<>
+					<Card>
+						<CardBody>
+							<Button className="mb-3" onClick={handlePrint}>
+								<i className="fas fa-print"></i>{" "}
+								<span className="ml-2">Cetak</span>
+							</Button>
+							<Table className="table-bordered">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>NIM</th>
+										<th>Nama Mahasiswa</th>
+										<th>Kelas</th>
 									</tr>
-								))}
-							</tbody>
-						</Table>
-					</CardBody>
-				</Card>
+								</thead>
+								<tbody>
+									{values.map((item, idx) => (
+										<tr key={idx}>
+											<td>{idx + 1}</td>
+											<td>{item.nim}</td>
+											<td>{item.nama}</td>
+											<td>{item.kelas}</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						</CardBody>
+					</Card>
+				</>
+			) : (
+				<>
+					<Card>
+						<CardBody>
+							<div className="text-center">
+								Mahasiswa Tidak Ditemukan
+							</div>
+						</CardBody>
+					</Card>
+				</>
 			)}
 		</DashboardLayout>
 	);

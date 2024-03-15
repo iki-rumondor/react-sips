@@ -4,20 +4,19 @@ import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
-import { getUserUuid } from "../../utils/Helpers";
+import { filterMahasiswa, getUserUuid } from "../../utils/Helpers";
 import DetailMahasiswa from "./DetailMahasiswa";
 
-export default function PenasihatMahasiswa() {
+export default function MahasiswaAll() {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [values, setValues] = useState(null);
-	const { isLoading, setIsLoading } = useLoading();
-	const [filter, setFilter] = useState("all");
+	const { setIsLoading } = useLoading();
+	const [filter, setFilter] = useState("");
 	const options = [
-		{ name: "Semua Mahasiswa", value: "all" },
+		{ name: "Semua Mahasiswa", value: "" },
 		{ name: "Mahasiswa Percepatan", value: "percepatan" },
 		{ name: "Mahasiswa Terancam Drop Out", value: "do" },
 	];
-	const uuid = getUserUuid();
 
 	const handleChange = () => {
 		setValues(filterMahasiswa(filter, mahasiswa));
@@ -25,13 +24,14 @@ export default function PenasihatMahasiswa() {
 
 	const handleLoad = async () => {
 		try {
-			const res = await fetchAPI(
-				`/api/mahasiswa/penasihat/${uuid}?filter=${filter}`
-			);
+			setIsLoading(true);
+			const res = await fetchAPI(`/api/mahasiswa`);
 			setValues(res?.data);
 			setMahasiswa(res?.data);
 		} catch (error) {
 			toast.error(error?.message);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -71,7 +71,7 @@ export default function PenasihatMahasiswa() {
 
 	return (
 		<>
-			<DashboardLayout header={"Mahasiswa"}>
+			<DashboardLayout header={"Data Mahasiswa Sistem Informasi"}>
 				<Card>
 					<CardBody>
 						<Form.Group controlId="filter" className="mb-3">
@@ -148,21 +148,3 @@ export default function PenasihatMahasiswa() {
 		</>
 	);
 }
-
-const filterMahasiswa = (filter, data) => {
-	let result = data;
-	if (filter == "percepatan") {
-		result = data.filter((item) => {
-			return item.percepatan;
-		});
-	}
-
-	if (filter == "do") {
-		const currentYear = new Date().getFullYear();
-		result = data.filter((item) => {
-			return item.angkatan < currentYear - 5;
-		});
-	}
-
-	return result;
-};
