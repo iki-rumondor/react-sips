@@ -64,6 +64,16 @@ export default function Detail({ uuid }) {
 								keys={"Jumlah Error"}
 								value={values?.jumlah_error}
 							/>
+							<ListKeyValue
+								keys={"Kelas"}
+								value={values?.kelas == "" ? "-" : values.kelas}
+							/>
+							<ListKeyValue
+								keys={"Percepatan"}
+								value={
+									values?.percepatan ? "Masuk" : "Tidak Masuk"
+								}
+							/>
 						</>
 					)}
 				</Modal.Body>

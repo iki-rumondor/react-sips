@@ -46,11 +46,9 @@ export const DashboardMahasiswa = () => {
 					<div className="row">
 						<HeroSection
 							variant="success"
-							title={
-								"Selamat Anda Termasuk Mahasiswa Percepatan 2023"
-							}
+							title={"Selamat Anda Termasuk Mahasiswa Percepatan"}
 							subtitle={
-								"Silahkan mengurus berkas-berkas percepatan studi dengan menghubungi kaprodi sampai dengan tanggal 17 Desember 2024"
+								"Silahkan mengajukan topik di SISKP dan berkonsultasi dengan dosen penasihat akademik anda"
 							}
 						/>
 					</div>

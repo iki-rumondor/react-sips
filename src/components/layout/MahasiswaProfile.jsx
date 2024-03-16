@@ -17,13 +17,13 @@ export const MahasiswaProfile = ({ data }) => {
 								Total SKS
 							</div>
 							<div className="profile-widget-item-value">
-							{data?.total_sks}
+								{data?.total_sks}
 							</div>
 						</div>
 						<div className="profile-widget-item">
 							<div className="profile-widget-item-label">IPK</div>
 							<div className="profile-widget-item-value">
-							{data?.ipk}
+								{data?.ipk}
 							</div>
 						</div>
 						<div className="profile-widget-item">
@@ -54,13 +54,12 @@ export const MahasiswaProfile = ({ data }) => {
 					/>
 					<ListGroupKeyValue
 						keys={"Kelas Yang Harus DiKontrak"}
-						value={data?.kelas ?? "Belum Diset"}
+						value={data?.kelas == "" ? "-" : data?.kelas}
 					/>
 					<ListGroupKeyValue
 						keys={"Status Percepatan"}
 						value={data?.percepatan ? "Masuk" : "Tidak Masuk"}
 					/>
-
 				</div>
 			</div>
 		</div>

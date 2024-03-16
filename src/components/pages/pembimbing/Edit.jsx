@@ -38,7 +38,7 @@ export default function Edit({ uuid }) {
 			setIsSuccess(true);
 			toast.success(res?.message);
 		} catch (error) {
-			toast.error(error);
+			toast.error(error?.message);
 		} finally {
 			setIsLoading(false);
 		}

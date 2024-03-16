@@ -21,6 +21,7 @@ export const DashboardPenasihat = () => {
 			const dashboard = await fetchAPI(
 				`/api/dashboard/penasihat/${uuid}`
 			);
+			console.log(dashboard.data);
 			const user = await fetchAPI(`/api/user/${uuid}`);
 			setData(res.data);
 			setDashboard(dashboard.data);

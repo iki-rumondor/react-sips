@@ -1,12 +1,10 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import ProfileDropdown from "../../../module/dropdown/Profile";
 
 export const TopBar = () => {
 	const loc = useLocation();
 	const role = sessionStorage.getItem("role");
-	console.log(role);
 	const [show, setShow] = useState(false);
 	const links = [
 		{ name: "Home", href: "/" },
@@ -51,10 +49,7 @@ export const TopBar = () => {
 								<div className="dropdown-title">
 									Logged in 5 min ago
 								</div>
-								<a
-									href="/home"
-									className="dropdown-item"
-								>
+								<a href="/home" className="dropdown-item">
 									Dashboard
 								</a>
 								<div className="dropdown-divider"></div>

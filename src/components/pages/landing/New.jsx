@@ -34,8 +34,18 @@ const NewLandingPage = () => {
 	}, []);
 	return (
 		<>
-			<link rel="stylesheet" type="text/css" href="/src/assets/css/custom.css" />;
-			<link rel="stylesheet" type="text/css" href="/src/assets/css/bizland.css" />;
+			<link
+				rel="stylesheet"
+				type="text/css"
+				href="/src/assets/css/custom.css"
+			/>
+			;
+			<link
+				rel="stylesheet"
+				type="text/css"
+				href="/src/assets/css/bizland.css"
+			/>
+			;
 			<TopBar />
 			<Hero />
 			<About />
@@ -59,6 +69,7 @@ const NewLandingPage = () => {
 									<th>NIM</th>
 									<th>Nama Mahasiswa</th>
 									<th>Angkatan</th>
+									<th>Ipk</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,6 +79,7 @@ const NewLandingPage = () => {
 										<td>{item.nim}</td>
 										<td>{item.nama}</td>
 										<td>{item.angkatan}</td>
+										<td>{item.ipk}</td>
 									</tr>
 								))}
 							</tbody>

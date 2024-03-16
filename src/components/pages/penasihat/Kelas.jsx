@@ -127,7 +127,7 @@ export const KelasPenasihat = () => {
 										<td>{idx + 1}</td>
 										<td>{item.nim}</td>
 										<td>{item.nama}</td>
-										<td>{item.kelas}</td>
+										<td>{item?.kelas ?? "-"}</td>
 									</tr>
 								))}
 							</tbody>

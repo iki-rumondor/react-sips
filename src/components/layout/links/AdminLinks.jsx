@@ -15,13 +15,15 @@ export const AdminLinks = () => {
 			<Sidebar.Link path={"/pembimbing"} icon={"fa-user"}>
 				Penasihat Akademik
 			</Sidebar.Link>
-			<Sidebar.HeaderLink>Proses</Sidebar.HeaderLink>
-			<Sidebar.Link path={"/percepatan"} icon={"fa-user"}>
+			<Sidebar.Link path={"/setting"} icon={"fa-user"}>
+				Pengaturan
+			</Sidebar.Link>
+			{/* <Sidebar.Link path={"/percepatan"} icon={"fa-user"}>
 				Percepatan Studi
 			</Sidebar.Link>
 			<Sidebar.Link path={"/kelas"} icon={"fa-user"}>
 				Pembagian Kelas
-			</Sidebar.Link>
+			</Sidebar.Link> */}
 		</>
 	);
 };

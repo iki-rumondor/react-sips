@@ -43,8 +43,7 @@ export default function DashboardLayout({ header, children }) {
 			</div>
 			<footer className="main-footer">
 				<div className="footer-left">
-					Copyright &copy; 2024 <div className="bullet"></div> Ilham
-					Dwiki Putra Rumondor
+					Copyright &copy; 2024 <div className="bullet"></div> Masita Fitria Manangin
 				</div>
 				<div className="footer-right">V1.0</div>
 			</footer>

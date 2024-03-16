@@ -21,6 +21,7 @@ import { DashboardKaprodi } from "./components/pages/dashboard/Kaprodi";
 import MahasiswaAll from "./components/pages/kaprodi/Mahasiswa";
 import { KelasAll } from "./components/pages/kaprodi/Kelas";
 import NewLandingPage from "./components/pages/landing/New";
+import { SettingPercepatan } from "./components/pages/admin/SettingPercepatan";
 
 export const Router = () => {
 	return (
@@ -34,6 +35,7 @@ export const Router = () => {
 						<Route path="/percepatan" element={<Percepatan />} />
 						<Route path="/kelas" element={<Kelas />} />
 						<Route path="/pembimbing" element={<Pembimbing />} />
+						<Route path="/setting" element={<SettingPercepatan />} />
 					</Route>
 					<Route element={<RoleAuth name={"MAHASISWA"} />}>
 						<Route
