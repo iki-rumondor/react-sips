@@ -39,8 +39,8 @@ export const NewestLanding = () => {
 			/> */}
 			<Topbar />
 			<div
-				className="row px-5 d-flex align-items-center"
-				style={{ minHeight: "80vh" }}
+				className="row px-3 px-sm-5 d-flex align-items-center justify-content-center m-auto"
+				style={{ minHeight: "80vh", maxWidth: "1000px" }}
 			>
 				<div className="col-sm-6">
 					<div className="h3 font-weight-bold text-dark mb-3">
@@ -57,10 +57,7 @@ export const NewestLanding = () => {
 					</button>
 				</div>
 				<div className="col-sm-6 text-center">
-					<img
-						style={{ width: "95%" }}
-						src="/src/assets/img/image-landingpage.png"
-					/>
+					<img className="d-none d-sm-block w-100" src="/src/assets/img/image-landingpage.png" />
 				</div>
 			</div>
 			<section className="mb-5 d-flex justify-content-center row mx-4 mx-sm-0">
