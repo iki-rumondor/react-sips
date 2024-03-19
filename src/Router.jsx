@@ -22,6 +22,10 @@ import MahasiswaAll from "./components/pages/kaprodi/Mahasiswa";
 import { KelasAll } from "./components/pages/kaprodi/Kelas";
 import NewLandingPage from "./components/pages/landing/New";
 import { SettingPercepatan } from "./components/pages/admin/SettingPercepatan";
+import { NewestLanding } from "./components/pages/landing/Newest";
+import { PercepatanLanding } from "./components/pages/landing/mahasiswa/Percepatan";
+import { DropoutLanding } from "./components/pages/landing/mahasiswa/Dropout";
+import { NewLogin } from "./components/pages/auth/NewLogin";
 
 export const Router = () => {
 	return (
@@ -72,9 +76,11 @@ export const Router = () => {
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>
-					<Route path="/login" element={<Login />} />
+					<Route path="/login" element={<NewLogin />} />
 				</Route>
-				<Route path="/" Component={NewLandingPage} />
+				<Route path="/" Component={NewestLanding} />
+				<Route path="/home/percepatan" Component={PercepatanLanding} />
+				<Route path="/home/do" Component={DropoutLanding} />
 			</Routes>
 		</BrowserRouter>
 	);
