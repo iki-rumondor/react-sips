@@ -61,7 +61,7 @@ export const deleteAPI = async (endpoint) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw error.response ? error.response.data : error;
 	}
 };
 

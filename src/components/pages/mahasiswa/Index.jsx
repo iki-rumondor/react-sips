@@ -8,6 +8,7 @@ import Detail from "./Detail";
 import Edit from "./Edit";
 import useLoading from "../../hooks/useLoading";
 import Delete from "./Delete";
+import DeleteAll from "./DeleteAll";
 
 export default function Mahasiswa() {
 	const [values, setValues] = useState([])
@@ -31,6 +32,7 @@ export default function Mahasiswa() {
 			<DashboardLayout header={"Mahasiswa"}>
 				<div className="mb-3">
 					<Import />
+					<DeleteAll/>
 				</div>
 				<Card>
 					<CardBody>

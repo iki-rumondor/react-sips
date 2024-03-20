@@ -6,8 +6,10 @@ import useLoading from "../../hooks/useLoading";
 import { useEffect, useState } from "react";
 import { filterMahasiswa } from "../../utils/Helpers";
 
+
 export const NewestLanding = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
+	const [dropout, setDropout] = useState(null);
 	const [percepatan, setPercepatan] = useState(null);
 	const { setIsLoading } = useLoading();
 	const handleLoad = async () => {
@@ -16,7 +18,8 @@ export const NewestLanding = () => {
 			const res = await fetchAPI("/api/percepatan");
 			setPercepatan(res.data);
 			const res2 = await fetchAPI("/api/mahasiswa");
-			setMahasiswa(filterMahasiswa("do", res2.data));
+			setDropout(filterMahasiswa("do", res2.data));
+			setMahasiswa(res2.data);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -27,16 +30,25 @@ export const NewestLanding = () => {
 		handleLoad();
 	}, []);
 	const info = [
-		{ name: "Jumlah Mahasiswa", icon: "student.png" },
-		{ name: "Lolos Percepatan Studi", icon: "graduation.png" },
-		{ name: "Terancam Drop Out", icon: "warning.png" },
+		{
+			name: "Jumlah Mahasiswa",
+			icon: "student.png",
+			value: mahasiswa?.length,
+		},
+		{
+			name: "Lolos Percepatan Studi",
+			icon: "graduation.png",
+			value: percepatan?.length,
+		},
+		{
+			name: "Terancam Drop Out",
+			icon: "warning.png",
+			value: dropout?.length,
+		},
 	];
+
 	return (
 		<div className="bg-white w-100 overflow-hidden">
-			{/* <link
-				rel="stylesheet"
-				href="/src/assets/css/landingpage/custom.css"
-			/> */}
 			<Topbar />
 			<div
 				className="row px-3 px-sm-5 d-flex align-items-center justify-content-center m-auto"
@@ -52,12 +64,18 @@ export const NewestLanding = () => {
 						dukungan kepada mahasiswa agar dapat menyelesaikan studi
 						dengan lebih cepat atau tepat waktu.
 					</div>
-					<button className="btn btn-lg btn-primary mt-4 px-5 py-2">
+					<a
+						href="#syarat"
+						className="btn btn-lg btn-primary mt-4 px-5 py-2"
+					>
 						Get Started
-					</button>
+					</a>
 				</div>
 				<div className="col-sm-6 text-center">
-					<img className="d-none d-sm-block w-100" src="/src/assets/img/image-landingpage.png" />
+					<img
+						className="d-none d-sm-block w-100"
+						src="/src/assets/img/image-landingpage.png"
+					/>
 				</div>
 			</div>
 			<section className="mb-5 d-flex justify-content-center row mx-4 mx-sm-0">
@@ -83,14 +101,17 @@ export const NewestLanding = () => {
 								className="font-weight-bold"
 								style={{ fontSize: "1.2rem" }}
 							>
-								100
+								{item.value}
 							</div>
 						</div>
 					</div>
 				))}
 			</section>
 			<section className="px-5 mb-5" style={{ marginTop: "100px" }}>
-				<div className="font-weight-bold mb-4 text-center h5">
+				<div
+					id="syarat"
+					className="font-weight-bold mb-4 text-center h5"
+				>
 					Syarat Mengikuti Program Percepatan Studi
 				</div>
 				<div className="row d-flex align-items-center">
@@ -152,8 +173,8 @@ export const NewestLanding = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{mahasiswa &&
-							mahasiswa.map((item, idx) => (
+						{dropout &&
+							dropout.map((item, idx) => (
 								<tr key={idx}>
 									<td>{idx + 1}</td>
 									<td>{item.nim}</td>

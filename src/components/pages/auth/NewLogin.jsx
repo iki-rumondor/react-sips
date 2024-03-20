@@ -41,8 +41,13 @@ export const NewLogin = () => {
 		<>
 			<style>{css}</style>
 			<div
-				className="bg-white w-100 overflow-hidden d-flex align-items-center justify-content-center"
-				style={{ minHeight: "100vh" }}
+				className="w-100 overflow-hidden d-flex align-items-center justify-content-center"
+				style={{
+					minHeight: "100vh",
+					backgroundImage: "url(/src/assets/img/bg-login.png)",
+					backgroundSize: "cover",
+					backgroundRepeat: "no-repeat",
+				}}
 			>
 				<div
 					style={{ maxWidth: "400px" }}
@@ -96,6 +101,7 @@ export const NewLogin = () => {
 								type="text"
 								className="form-control"
 								id="username"
+								placeholder="Masukkan NIM atau NIP"
 								value={values.username}
 								onChange={(e) =>
 									setValues({
@@ -104,6 +110,9 @@ export const NewLogin = () => {
 									})
 								}
 							/>
+							<small>
+								NIM untuk Mahasiswa dan NIP untuk Dosen PA
+							</small>
 						</div>
 						<div className="form-group">
 							<label for="password">
@@ -122,6 +131,7 @@ export const NewLogin = () => {
 								</span>
 							</label>
 							<input
+							placeholder="Masukkan Password"
 								style={{ borderRadius: "10px" }}
 								type="password"
 								className="form-control"
