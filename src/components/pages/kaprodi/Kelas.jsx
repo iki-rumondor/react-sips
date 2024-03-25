@@ -26,7 +26,7 @@ export const KelasAll = () => {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(`/api/mahasiswa`);
+			const res = await fetchAPI(`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`);
 			setMahasiswa(
 				filterMahasiswa("pembagian_kelas", res.data, currentYear - 3)
 			);

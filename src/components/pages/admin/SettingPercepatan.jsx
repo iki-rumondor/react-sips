@@ -55,7 +55,6 @@ export const SettingPercepatan = () => {
 	};
 
 	const handleSubmit = async () => {
-		console.log(values);
 		try {
 			setIsLoading(true);
 			setIsSuccess(false);

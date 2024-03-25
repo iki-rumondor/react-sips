@@ -11,12 +11,14 @@ import Delete from "./Delete";
 import DeleteAll from "./DeleteAll";
 
 export default function Mahasiswa() {
-	const [values, setValues] = useState([])
-	const {isLoading} = useLoading()
+	const [values, setValues] = useState([]);
+	const { isLoading } = useLoading();
 
 	const handleLoad = async () => {
 		try {
-			const res = await fetchAPI("/api/mahasiswa");
+			const res = await fetchAPI(
+				"/api/mahasiswa/prodi/" + sessionStorage.getItem("uuid")
+			);
 			setValues(res?.data);
 		} catch (error) {
 			toast.error(error?.message);
@@ -32,7 +34,7 @@ export default function Mahasiswa() {
 			<DashboardLayout header={"Mahasiswa"}>
 				<div className="mb-3">
 					<Import />
-					<DeleteAll/>
+					<DeleteAll />
 				</div>
 				<Card>
 					<CardBody>

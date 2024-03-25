@@ -9,12 +9,12 @@ import Delete from "./Delete";
 import Create from "./Create";
 
 export default function Pembimbing() {
-	const [values, setValues] = useState([])
-	const {isSuccess} = useLoading()
-
+	const [values, setValues] = useState([]);
+	const { isSuccess } = useLoading();
+	const uuid = sessionStorage.getItem("uuid");
 	const handleLoad = async () => {
 		try {
-			const res = await fetchAPI("/api/pembimbing");
+			const res = await fetchAPI("/api/pembimbing/prodi/" + uuid);
 			setValues(res?.data);
 		} catch (error) {
 			toast.error(error?.message);

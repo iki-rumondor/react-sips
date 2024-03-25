@@ -12,14 +12,14 @@ export const DashboardKaprodi = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [penasihat, setPenasihat] = useState(null);
 	const [dashboard, setDashboard] = useState(null);
-
+	const uuid = sessionStorage.getItem("uuid")
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res1 = await fetchAPI(`/api/mahasiswa`);
+			const res1 = await fetchAPI(`/api/mahasiswa/prodi/${uuid}`);
 			setMahasiswa(res1.data);
 
-			const res2 = await fetchAPI(`/api/pembimbing`);
+			const res2 = await fetchAPI(`/api/pembimbing/prodi/${uuid}`);
 			setPenasihat(res2.data);
 
 			const res3 = await fetchAPI(`/api/dashboard/kaprodi`);

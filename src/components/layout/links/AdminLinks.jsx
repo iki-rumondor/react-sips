@@ -9,11 +9,8 @@ export const AdminLinks = () => {
 				Dashboard
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Master</Sidebar.HeaderLink>
-			<Sidebar.Link path={"/mahasiswa"} icon={"fa-user"}>
-				Mahasiswa
-			</Sidebar.Link>
-			<Sidebar.Link path={"/pembimbing"} icon={"fa-user"}>
-				Penasihat Akademik
+			<Sidebar.Link path={"/prodi"} icon={"fa-user"}>
+				Program Studi
 			</Sidebar.Link>
 			<Sidebar.Link path={"/setting"} icon={"fa-user"}>
 				Pengaturan

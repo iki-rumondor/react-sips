@@ -31,7 +31,7 @@ export default function Import() {
 
 	const handleLoad = async () => {
 		try {
-			const res = await fetchAPI("/api/pembimbing");
+			const res = await fetchAPI("/api/pembimbing/prodi/" + sessionStorage.getItem("uuid"));
 			setPembimbing(res.data);
 		} catch (error) {
 			toast.error(error?.message);

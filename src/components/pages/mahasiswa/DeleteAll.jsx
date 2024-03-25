@@ -14,9 +14,11 @@ export default function DeleteAll() {
 
 	const handleSubmit = async () => {
 		try {
-			handleClose()
+			handleClose();
 			setIsLoading(true);
-			const res = await deleteAPI("/api/mahasiswa/all");
+			const res = await deleteAPI(
+				"/api/mahasiswa/prodi/" + sessionStorage.getItem("uuid")
+			);
 			toast.success(res?.message);
 		} catch (error) {
 			toast.error(error?.message);

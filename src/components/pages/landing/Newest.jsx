@@ -51,8 +51,8 @@ export const NewestLanding = () => {
 		<div className="bg-white w-100 overflow-hidden">
 			<Topbar />
 			<div
-				className="row px-3 px-sm-5 d-flex align-items-center justify-content-center m-auto"
-				style={{ minHeight: "80vh", maxWidth: "1000px" }}
+				className="row px-5 px-sm-5 d-flex align-items-center justify-content-center m-auto"
+				style={{ minHeight: "80vh"}}
 			>
 				<div className="col-sm-6">
 					<div className="h3 font-weight-bold text-dark mb-3">

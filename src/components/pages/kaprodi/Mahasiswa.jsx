@@ -25,7 +25,7 @@ export default function MahasiswaAll() {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(`/api/mahasiswa`);
+			const res = await fetchAPI(`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`);
 			setValues(res?.data);
 			setMahasiswa(res?.data);
 		} catch (error) {

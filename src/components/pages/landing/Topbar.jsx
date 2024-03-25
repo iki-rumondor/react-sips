@@ -8,8 +8,8 @@ export const Topbar = () => {
 	const { pathname } = useLocation();
 	const links = [
 		{ name: "Beranda", href: "/" },
-		{ name: "Mahasiswa Percepatan Studi", href: "/home/percepatan" },
-		{ name: "Mahasiswa Drop Out", href: "/home/do" },
+		{ name: "Percepatan Studi", href: "/home/percepatan" },
+		{ name: "Drop Out", href: "/home/do" },
 	];
 	const loc = useLocation();
 	const role = sessionStorage.getItem("role");
@@ -21,7 +21,7 @@ export const Topbar = () => {
 				rel="stylesheet"
 				href="/src/assets/css/landingpage/custom.css"
 			/>
-			<div className="d-flex w-100 justify-content-between px-4 py-2 align-items-center shadow-sm">
+			<div className="d-flex w-100 justify-content-between px-5 py-2 align-items-center shadow-sm">
 				<div className="d-flex align-items-center">
 					<img style={{ width: "120px" }} src={logo} />
 					<div

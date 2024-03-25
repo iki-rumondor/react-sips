@@ -2,10 +2,9 @@ import React from "react";
 import MessagesDropdown from "../module/dropdown/Messages";
 import NotificationDropdown from "../module/dropdown/Notification";
 import ProfileDropdown from "../module/dropdown/Profile";
-import { getUserRole } from "../utils/Helpers";
 
 export default function Navbar() {
-	const role = getUserRole();
+	const role = sessionStorage.getItem("role");
 	return (
 		<div className="main-wrapper">
 			<div className="navbar-bg"></div>

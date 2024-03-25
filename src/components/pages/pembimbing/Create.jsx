@@ -9,6 +9,7 @@ export default function Create() {
 	const [show, setShow] = useState(false);
 
 	const defaultValue = {
+		user_uuid: sessionStorage.getItem("uuid"),
 		nama: "",
 		nip: "",
 	};
