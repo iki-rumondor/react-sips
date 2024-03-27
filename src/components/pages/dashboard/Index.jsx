@@ -5,11 +5,14 @@ import { BarChart } from "./modules/BarChart";
 import { CardDashboard } from "./modules/Card";
 import useLoading from "../../hooks/useLoading";
 import { useEffect, useState } from "react";
+import { Card, CardBody, CardHeader } from "react-bootstrap";
+import { ChartModel, DonutChart } from "../../layout/chart/ApexChart";
 
 export const Home = () => {
 	const { setIsLoading } = useLoading();
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [penasihat, setPenasihat] = useState(null);
+	const [dashboard, setDashboard] = useState(null);
 
 	const handleLoad = async () => {
 		try {
@@ -20,6 +23,9 @@ export const Home = () => {
 			const res2 = await fetchAPI(`/api/pembimbing`);
 			setPenasihat(res2.data);
 
+			const res3 = await fetchAPI(`/api/dashboard/kajur`);
+			setDashboard(res3.data);
+			console.log(res3.data);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -33,7 +39,7 @@ export const Home = () => {
 
 	return (
 		<>
-			<DashboardLayout header={"Selamat Datang Admin"}>
+			<DashboardLayout header={"Selamat Datang Ketua Jurusan"}>
 				<div className="row">
 					<CardDashboard
 						title={"Jumlah Mahasiswa"}
@@ -47,6 +53,75 @@ export const Home = () => {
 						color="success"
 					/>
 				</div>
+				{mahasiswa && (
+					<>
+						<div className="row">
+							<div className="col-sm-6">
+								<Card>
+									<CardHeader>
+										Mahasiswa Berdasarkan Status
+									</CardHeader>
+									<CardBody>
+										<ChartModel
+											categories={[
+												"Percepatan Studi",
+												"Terancam Drop Out",
+											]}
+											type={"bar"}
+											series={[
+												{
+													name: "Mahasiswa",
+													data: [
+														dashboard?.percepatan,
+														dashboard?.do,
+													],
+												},
+											]}
+										/>
+									</CardBody>
+								</Card>
+							</div>
+							<div className="col-sm-6">
+								<Card>
+									<CardHeader>
+										Mahasiswa Berdasarkan Program Studi
+									</CardHeader>
+									<CardBody>
+										<ChartModel
+											categories={dashboard?.listProdi}
+											type={"bar"}
+											series={[
+												{
+													name: "Mahasiswa",
+													data: dashboard?.amountProdi,
+												},
+											]}
+										/>
+									</CardBody>
+								</Card>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-sm-6">
+								<Card>
+									<CardHeader>
+										Mahasiswa Berdasarkan Angkatan
+									</CardHeader>
+									<CardBody>
+										<DonutChart
+											labels={
+												dashboard?.listAngkatan ?? []
+											}
+											series={
+												dashboard?.amountAngkatan ?? []
+											}
+										/>
+									</CardBody>
+								</Card>
+							</div>
+						</div>
+					</>
+				)}
 			</DashboardLayout>
 		</>
 	);

@@ -6,7 +6,6 @@ import useLoading from "../../hooks/useLoading";
 import { useEffect, useState } from "react";
 import { filterMahasiswa } from "../../utils/Helpers";
 
-
 export const NewestLanding = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [dropout, setDropout] = useState(null);
@@ -52,7 +51,7 @@ export const NewestLanding = () => {
 			<Topbar />
 			<div
 				className="row px-5 px-sm-5 d-flex align-items-center justify-content-center m-auto"
-				style={{ minHeight: "80vh"}}
+				style={{ minHeight: "80vh" }}
 			>
 				<div className="col-sm-6">
 					<div className="h3 font-weight-bold text-dark mb-3">
@@ -101,7 +100,7 @@ export const NewestLanding = () => {
 								className="font-weight-bold"
 								style={{ fontSize: "1.2rem" }}
 							>
-								{item.value}
+								{item?.value ?? 0}
 							</div>
 						</div>
 					</div>

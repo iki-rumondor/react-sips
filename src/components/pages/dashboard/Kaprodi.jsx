@@ -12,7 +12,7 @@ export const DashboardKaprodi = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [penasihat, setPenasihat] = useState(null);
 	const [dashboard, setDashboard] = useState(null);
-	const uuid = sessionStorage.getItem("uuid")
+	const uuid = sessionStorage.getItem("uuid");
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
@@ -22,7 +22,9 @@ export const DashboardKaprodi = () => {
 			const res2 = await fetchAPI(`/api/pembimbing/prodi/${uuid}`);
 			setPenasihat(res2.data);
 
-			const res3 = await fetchAPI(`/api/dashboard/kaprodi`);
+			const res3 = await fetchAPI(
+				`/api/dashboard/kaprodi/${sessionStorage.getItem("uuid")}`
+			);
 			setDashboard(res3.data);
 		} catch (error) {
 			toast.error(error.message);
@@ -37,7 +39,10 @@ export const DashboardKaprodi = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={"Selamat Datang, Koordinator Program Studi"}
+				header={
+					"Selamat Datang, Koordinator Program Studi " +
+					dashboard?.prodi
+				}
 			>
 				<div className="row">
 					<CardDashboard
@@ -54,46 +59,52 @@ export const DashboardKaprodi = () => {
 					/>
 				</div>
 				{mahasiswa && (
-					<div className="row">
-						<div className="col-sm-6">
-							<Card>
-								<CardHeader>
-									Mahasiswa Berdasarkan Status
-								</CardHeader>
-								<CardBody>
-									<ChartModel
-										categories={[
-											"Percepatan Studi",
-											"Terancam Drop Out",
-										]}
-										type={"bar"}
-										series={[
-											{
-												name: "Mahasiswa",
-												data: [
-													dashboard?.percepatan,
-													dashboard?.do,
-												],
-											},
-										]}
-									/>
-								</CardBody>
-							</Card>
+					<>
+						<div className="row">
+							<div className="col-sm-6">
+								<Card>
+									<CardHeader>
+										Mahasiswa Berdasarkan Status
+									</CardHeader>
+									<CardBody>
+										<ChartModel
+											categories={[
+												"Percepatan Studi",
+												"Terancam Drop Out",
+											]}
+											type={"bar"}
+											series={[
+												{
+													name: "Mahasiswa",
+													data: [
+														dashboard?.percepatan,
+														dashboard?.do,
+													],
+												},
+											]}
+										/>
+									</CardBody>
+								</Card>
+							</div>
+							<div className="col-sm-6">
+								<Card>
+									<CardHeader>
+										Mahasiswa Berdasarkan Angkatan
+									</CardHeader>
+									<CardBody>
+										<DonutChart
+											labels={
+												dashboard?.listAngkatan ?? []
+											}
+											series={
+												dashboard?.amountAngkatan ?? []
+											}
+										/>
+									</CardBody>
+								</Card>
+							</div>
 						</div>
-						<div className="col-sm-6">
-							<Card>
-								<CardHeader>
-									Mahasiswa Berdasarkan Angkatan
-								</CardHeader>
-								<CardBody>
-									<DonutChart
-										labels={dashboard?.listAngkatan ?? []}
-										series={dashboard?.amountAngkatan ?? []}
-									/>
-								</CardBody>
-							</Card>
-						</div>
-					</div>
+					</>
 				)}
 			</DashboardLayout>
 		</>
