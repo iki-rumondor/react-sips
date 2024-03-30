@@ -12,7 +12,7 @@ export const KaprodiLinks = () => {
 				Mahasiswa
 			</Sidebar.Link>
 			<Sidebar.Link path={"/kaprodi/master/penasihat"} icon={"fa-user"}>
-				Penasihat Akademik
+				Pembimbing Akademik
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Output</Sidebar.HeaderLink>
 			<Sidebar.Link path={"/kaprodi/mahasiswa"} icon={"fa-user"}>

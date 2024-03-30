@@ -27,7 +27,7 @@ export default function Pembimbing() {
 
 	return (
 		<>
-			<DashboardLayout header={"Penasihat Akademik"}>
+			<DashboardLayout header={"Pembimbing Akademik"}>
 				<div className="mb-3">
 					<Create />
 				</div>

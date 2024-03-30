@@ -31,7 +31,7 @@ export const DashboardMahasiswa = () => {
 	return (
 		<>
 			<DashboardLayout header={"Selamat Datang, " + data?.nama}>
-				{data?.angkatan < year - 3 && (
+				{data?.angkatan < year - 5 && (
 					<div className="row">
 						<HeroSection
 							variant="danger"
@@ -48,7 +48,7 @@ export const DashboardMahasiswa = () => {
 							variant="success"
 							title={"Selamat Anda Termasuk Mahasiswa Percepatan"}
 							subtitle={
-								"Silahkan mengajukan topik di SISKP dan berkonsultasi dengan dosen penasihat akademik anda"
+								"Silahkan mengajukan topik di SISKP dan berkonsultasi dengan dosen pembimbing akademik anda"
 							}
 						/>
 					</div>

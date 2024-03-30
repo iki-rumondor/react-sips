@@ -89,7 +89,7 @@ export default function Edit({ uuid }) {
 							controlId="pembimbing_uuid"
 							className="mb-3"
 						>
-							<Form.Label>Penasihat Akademik</Form.Label>
+							<Form.Label>Pembimbing Akademik</Form.Label>
 							<Form.Control
 								as="select"
 								name="pembimbing_uuid"

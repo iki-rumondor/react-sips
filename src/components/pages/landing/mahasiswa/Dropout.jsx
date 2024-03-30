@@ -49,15 +49,15 @@ export const DropoutLanding = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{/* {percepatan.map((item, idx) => (
-							<tr key={idx}>
-								<td>{idx + 1}</td>
-								<td>{item.nim}</td>
-								<td>{item.nama}</td>
-								<td>{item.angkatan}</td>
-								<td>{item.ipk}</td>
-							</tr>
-						))} */}
+							{mahasiswa && mahasiswa.map((item, idx) => (
+								<tr key={idx}>
+									<td>{idx + 1}</td>
+									<td>{item.nim}</td>
+									<td>{item.nama}</td>
+									<td>{item.angkatan}</td>
+									<td>{item.ipk}</td>
+								</tr>
+							))}
 						</tbody>
 					</Table>
 				</section>

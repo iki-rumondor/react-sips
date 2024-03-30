@@ -27,6 +27,8 @@ import { PercepatanLanding } from "./components/pages/landing/mahasiswa/Percepat
 import { DropoutLanding } from "./components/pages/landing/mahasiswa/Dropout";
 import { NewLogin } from "./components/pages/auth/NewLogin";
 import { MasterProdi } from "./components/pages/admin/MasterProdi";
+import { KelasJurusan } from "./components/pages/kajur/Kelas";
+import MahasiswaJurusan from "./components/pages/kajur/Mahasiswa";
 
 export const Router = () => {
 	return (
@@ -49,6 +51,14 @@ export const Router = () => {
 							element={<SettingPercepatan />}
 						/>
 						<Route path="/prodi" element={<MasterProdi />} />
+						<Route
+							path="/kajur/kelas"
+							element={<KelasJurusan />}
+						/>
+						<Route
+							path="/kajur/mahasiswa"
+							element={<MahasiswaJurusan />}
+						/>
 					</Route>
 					<Route element={<RoleAuth name={"MAHASISWA"} />}>
 						<Route

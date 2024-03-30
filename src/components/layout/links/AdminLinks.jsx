@@ -15,6 +15,13 @@ export const AdminLinks = () => {
 			<Sidebar.Link path={"/setting"} icon={"fa-user"}>
 				Pengaturan
 			</Sidebar.Link>
+			<Sidebar.HeaderLink>Output</Sidebar.HeaderLink>
+			<Sidebar.Link path={"/kajur/mahasiswa"} icon={"fa-user"}>
+				Mahasiswa
+			</Sidebar.Link>
+			<Sidebar.Link path={"/kajur/kelas"} icon={"fa-user"}>
+				Kelas Mahasiswa
+			</Sidebar.Link>
 			{/* <Sidebar.Link path={"/percepatan"} icon={"fa-user"}>
 				Percepatan Studi
 			</Sidebar.Link>

@@ -55,13 +55,14 @@ export const NewestLanding = () => {
 			>
 				<div className="col-sm-6">
 					<div className="h3 font-weight-bold text-dark mb-3">
-						Menggapai Mimpi dan Menyelesaikan Studi Tepat Pada
-						Waktunya
+						Sistem Informasi Percepatan Studi Peringatan Masa Studi
+						& Pengelolaan Kelas di Jurusan Teknik Informatika UNG
 					</div>
 					<div>
 						Program percepatan studi adalah program yang memberikan
 						dukungan kepada mahasiswa agar dapat menyelesaikan studi
-						dengan lebih cepat atau tepat waktu.
+						dengan lebih cepat atau tepat waktu. “Menggapai Mimpi
+						dan Menyelesaikan Studi Tepat Pada Waktunya”
 					</div>
 					<a
 						href="#syarat"

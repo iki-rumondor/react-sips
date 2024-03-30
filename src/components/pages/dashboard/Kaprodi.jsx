@@ -52,7 +52,7 @@ export const DashboardKaprodi = () => {
 						value={mahasiswa?.length ?? 0}
 					/>
 					<CardDashboard
-						title={"Jumlah Penasihat Akademik"}
+						title={"Jumlah Pembimbing Akademik"}
 						icon="fa-users"
 						color="danger"
 						value={penasihat?.length ?? 0}

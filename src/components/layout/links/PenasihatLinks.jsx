@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 export const PenasihatLinks = () => {
 	return (
 		<>
-			<Sidebar.HeaderLink>Penasihat Akademik</Sidebar.HeaderLink>
+			<Sidebar.HeaderLink>Pembimbing Akademik</Sidebar.HeaderLink>
 			<Sidebar.Link path={"/home/penasihat"} icon={"fa-user"}>
 				Dashboard
 			</Sidebar.Link>

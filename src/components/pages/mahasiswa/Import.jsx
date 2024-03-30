@@ -84,7 +84,7 @@ export default function Import() {
 				</Modal.Header>
 				<Modal.Body>
 					<Form.Group controlId="pembimbing" className="mb-3">
-						<Form.Label>Penasihat Akademik</Form.Label>
+						<Form.Label>Pembimbing Akademik</Form.Label>
 						<Form.Control
 							as="select"
 							value={pembimbingUuid}

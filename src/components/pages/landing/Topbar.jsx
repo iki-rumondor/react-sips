@@ -24,17 +24,6 @@ export const Topbar = () => {
 			<div className="d-flex w-100 justify-content-between px-5 py-2 align-items-center shadow-sm">
 				<div className="d-flex align-items-center">
 					<img style={{ width: "120px" }} src={logo} />
-					<div
-						style={{
-							fontSize: "12px",
-							fontWeight: 700,
-							color: "#4E7ACD",
-						}}
-						className="d-none d-lg-block"
-					>
-						Sistem Informasi Percepatan Studi, <br /> Peringatan
-						Masa Studi dan Pengelolaan Kelas
-					</div>
 				</div>
 				<div className="d-md-flex d-none align-items-center position-relative ">
 					<div>

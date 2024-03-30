@@ -49,7 +49,7 @@ export const MahasiswaProfile = ({ data }) => {
 						value={data?.angkatan}
 					/>
 					<ListGroupKeyValue
-						keys={"Dosen Penasihat Akademik"}
+						keys={"Dosen Pembimbing Akademik"}
 						value={data?.pembimbing?.nama ?? "Belum Diset"}
 					/>
 					<ListGroupKeyValue
