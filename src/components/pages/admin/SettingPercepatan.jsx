@@ -13,7 +13,6 @@ export const SettingPercepatan = () => {
 		jumlah_mahasiswa: "",
 		total_sks: "",
 		ipk: "",
-		jumlah_error: "",
 	});
 	const [change, setChange] = useState(false);
 
@@ -25,7 +24,7 @@ export const SettingPercepatan = () => {
 		jumlah_mahasiswa: "20",
 		total_sks: "120",
 		ipk: "3",
-		jumlah_error: "0",
+		maksimal_percepatan: "10",
 	};
 
 	const handleChange = (e) => {
@@ -101,26 +100,26 @@ export const SettingPercepatan = () => {
 								</Form.Group>
 								<Form.Group
 									className="mb-3"
-									controlId="total_sks"
+									controlId="maksimal_percepatan"
 								>
-									<Form.Label>Minimal Total Sks</Form.Label>
+									<Form.Label>
+										Batas Jumlah Mahasiswa Percepatan
+									</Form.Label>
 									<Form.Control
-										name="total_sks"
-										value={values?.total_sks}
+										name="maksimal_percepatan"
+										value={values?.maksimal_percepatan}
 										type="number"
 										onChange={handleChange}
 									/>
 								</Form.Group>
 								<Form.Group
 									className="mb-3"
-									controlId="jumlah_error"
+									controlId="total_sks"
 								>
-									<Form.Label>
-										Minimal Jumlah Error
-									</Form.Label>
+									<Form.Label>Minimal Total Sks</Form.Label>
 									<Form.Control
-										name="jumlah_error"
-										value={values?.jumlah_error}
+										name="total_sks"
+										value={values?.total_sks}
 										type="number"
 										onChange={handleChange}
 									/>

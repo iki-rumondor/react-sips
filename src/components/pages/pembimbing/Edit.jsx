@@ -10,7 +10,7 @@ export default function Edit({ uuid }) {
 
 	const defaultValue = {
 		nama: "",
-		nip: "",
+		// nip: "",
 	};
 
 	const [values, setValues] = useState(defaultValue);
@@ -82,7 +82,7 @@ export default function Edit({ uuid }) {
 							onChange={handleChange}
 						/>
 					</Form.Group>
-					<Form.Group className="mb-3" controlId="nip">
+					{/* <Form.Group className="mb-3" controlId="nip">
 						<Form.Label>Nomor Induk Pegawai</Form.Label>
 						<Form.Control
 							name="nip"
@@ -90,7 +90,7 @@ export default function Edit({ uuid }) {
 							type="text"
 							onChange={handleChange}
 						/>
-					</Form.Group>
+					</Form.Group> */}
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>

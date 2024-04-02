@@ -28,9 +28,9 @@ export default function Pembimbing() {
 	return (
 		<>
 			<DashboardLayout header={"Pembimbing Akademik"}>
-				<div className="mb-3">
+				{/* <div className="mb-3">
 					<Create />
-				</div>
+				</div> */}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -38,7 +38,7 @@ export default function Pembimbing() {
 								<tr>
 									<th>No</th>
 									<th>Nama</th>
-									<th>Nip</th>
+									<th>Username</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -48,7 +48,7 @@ export default function Pembimbing() {
 										<tr key={idx}>
 											<td>{idx + 1}</td>
 											<td>{item.nama}</td>
-											<td>{item.nip}</td>
+											<td>{item.username}</td>
 											<td>
 												<Dropdown>
 													<Dropdown.Toggle

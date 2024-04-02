@@ -11,12 +11,12 @@ export default function Import() {
 	const [showFail, setShowFail] = useState(false);
 	const [failed, setFailed] = useState(null);
 	const [file, setFile] = useState(null);
-	const [pembimbingUuid, setPembimbingUuid] = useState("");
-	const [pembimbing, setPembimbing] = useState(null);
+	// const [pembimbingUuid, setPembimbingUuid] = useState("");
+	// const [pembimbing, setPembimbing] = useState(null);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
-		handleLoad();
+		// handleLoad();
 		setShow(true);
 	};
 
@@ -29,14 +29,16 @@ export default function Import() {
 		}
 	};
 
-	const handleLoad = async () => {
-		try {
-			const res = await fetchAPI("/api/pembimbing/prodi/" + sessionStorage.getItem("uuid"));
-			setPembimbing(res.data);
-		} catch (error) {
-			toast.error(error?.message);
-		}
-	};
+	// const handleLoad = async () => {
+	// 	try {
+	// 		const res = await fetchAPI(
+	// 			"/api/pembimbing/prodi/" + sessionStorage.getItem("uuid")
+	// 		);
+	// 		setPembimbing(res.data);
+	// 	} catch (error) {
+	// 		toast.error(error?.message);
+	// 	}
+	// };
 
 	const postHandler = async (e) => {
 		e.preventDefault();
@@ -48,12 +50,11 @@ export default function Import() {
 
 		const formData = new FormData();
 		formData.append("mahasiswa", file);
-		formData.append("pembimbing_uuid", pembimbingUuid);
 
 		try {
 			setIsLoading(true);
 			const res = await postFile(
-				"/api/mahasiswa/import",
+				`/api/mahasiswa/import/${sessionStorage.getItem("uuid")}`,
 				"POST",
 				formData
 			);
@@ -83,7 +84,7 @@ export default function Import() {
 					<Modal.Title>Import Data Mahasiswa</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group controlId="pembimbing" className="mb-3">
+					{/* <Form.Group controlId="pembimbing" className="mb-3">
 						<Form.Label>Pembimbing Akademik</Form.Label>
 						<Form.Control
 							as="select"
@@ -102,7 +103,7 @@ export default function Import() {
 									</option>
 								))}
 						</Form.Control>
-					</Form.Group>
+					</Form.Group> */}
 					<Form.Group className="mb-3" controlId="code">
 						<Form.Label>Pilih File</Form.Label>
 						<Form.Control type="file" onChange={handleFileChange} />
