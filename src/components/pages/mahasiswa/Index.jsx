@@ -9,6 +9,7 @@ import Edit from "./Edit";
 import useLoading from "../../hooks/useLoading";
 import Delete from "./Delete";
 import DeleteAll from "./DeleteAll";
+import { sortJSON } from "../../utils/Helpers";
 
 export default function Mahasiswa() {
 	const [values, setValues] = useState([]);
@@ -19,7 +20,8 @@ export default function Mahasiswa() {
 			const res = await fetchAPI(
 				"/api/mahasiswa/prodi/" + sessionStorage.getItem("uuid")
 			);
-			setValues(res?.data);
+			console.log(res.data);
+			setValues(sortJSON(res?.data, "nim", "asc"));
 		} catch (error) {
 			toast.error(error?.message);
 		}

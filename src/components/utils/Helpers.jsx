@@ -2,6 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { fetchAPI } from "./Fetching";
 import toast from "react-hot-toast";
+import { json } from "react-router-dom";
 
 export const convertToMB = (bytes) => {
 	const size = (bytes / (1024 * 1024)).toFixed(2);
@@ -89,4 +90,21 @@ export const filterMahasiswa = (filter, data, option) => {
 	}
 
 	return result;
+};
+
+export const sortJSON = (jsonData, sortBy, sortOrder) => {
+	jsonData.sort((a, b) => {
+		let comparison = 0;
+		if (a[sortBy] > b[sortBy]) {
+			comparison = 1;
+		} else if (a[sortBy] < b[sortBy]) {
+			comparison = -1;
+		}
+		if (sortOrder === "desc") {
+			comparison = comparison * -1;
+		}
+		return comparison;
+	});
+
+	return jsonData;
 };
