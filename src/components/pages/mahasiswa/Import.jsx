@@ -6,7 +6,7 @@ import { convertToMB } from "../../utils/Helpers";
 import { fetchAPI, postFile } from "../../utils/Fetching";
 
 export default function Import() {
-	const { setIsLoading } = useLoading();
+	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [showFail, setShowFail] = useState(false);
 	const [failed, setFailed] = useState(null);
@@ -52,12 +52,14 @@ export default function Import() {
 		formData.append("mahasiswa", file);
 
 		try {
+			setIsSuccess(false)
 			setIsLoading(true);
 			const res = await postFile(
 				`/api/mahasiswa/import/${sessionStorage.getItem("uuid")}`,
 				"POST",
 				formData
 			);
+			setIsSuccess(true)
 			setFailed(res.data);
 			handleShowFail(true);
 		} catch (error) {

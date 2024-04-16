@@ -6,7 +6,7 @@ import { convertToMB } from "../../utils/Helpers";
 import { deleteAPI, fetchAPI, postFile } from "../../utils/Fetching";
 
 export default function DeleteAll() {
-	const { setIsLoading } = useLoading();
+	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -15,10 +15,12 @@ export default function DeleteAll() {
 	const handleSubmit = async () => {
 		try {
 			handleClose();
+			setIsSuccess(false)
 			setIsLoading(true);
 			const res = await deleteAPI(
 				"/api/mahasiswa/prodi/" + sessionStorage.getItem("uuid")
 			);
+			setIsSuccess(true)
 			toast.success(res?.message);
 		} catch (error) {
 			toast.error(error?.message);

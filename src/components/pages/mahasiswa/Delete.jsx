@@ -5,7 +5,7 @@ import useLoading from "../../hooks/useLoading";
 import { deleteAPI, postData } from "../../utils/Fetching";
 
 export default function Delete({ uuid }) {
-	const { setIsLoading } = useLoading();
+	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -14,8 +14,10 @@ export default function Delete({ uuid }) {
 	const handleDelete = async () => {
 		handleClose();
 		try {
+			setIsSuccess(false);
 			setIsLoading(true);
 			const res = await deleteAPI("/api/mahasiswa/" + uuid);
+			setIsSuccess(true);
 			toast.success(res?.message);
 		} catch (error) {
 			toast.error(error);

@@ -13,15 +13,15 @@ import { sortJSON } from "../../utils/Helpers";
 
 export default function Mahasiswa() {
 	const [values, setValues] = useState([]);
-	const { isLoading } = useLoading();
+	const { isLoading, isSuccess } = useLoading();
 
 	const handleLoad = async () => {
 		try {
 			const res = await fetchAPI(
 				"/api/mahasiswa/prodi/" + sessionStorage.getItem("uuid")
 			);
-			console.log(res.data);
-			setValues(sortJSON(res?.data, "nim", "asc"));
+			res?.data && sortJSON(res?.data, "nim", "asc");
+			setValues(res?.data);
 		} catch (error) {
 			toast.error(error?.message);
 		}
@@ -29,7 +29,7 @@ export default function Mahasiswa() {
 
 	useEffect(() => {
 		handleLoad();
-	}, [isLoading]);
+	}, [isSuccess]);
 
 	return (
 		<>

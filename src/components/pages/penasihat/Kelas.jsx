@@ -26,10 +26,11 @@ export const KelasPenasihat = () => {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
+			const res2 = await fetchAPI("/api/pengaturan/angkatan_kelas");
+			const batasAngkatan = res2.data.value;
+
 			const res = await fetchAPI(
-				`/api/mahasiswa/penasihat/${uuid}?min_angkatan=${
-					currentYear - 3
-				}&angkatan=${options.angkatan}&kelas=${options.kelas}`
+				`/api/mahasiswa/penasihat/${uuid}?min_angkatan=${batasAngkatan}&angkatan=${options.angkatan}&kelas=${options.kelas}`
 			);
 			setMahasiswa(res.data);
 			const classes = await fetchAPI("/api/classes");

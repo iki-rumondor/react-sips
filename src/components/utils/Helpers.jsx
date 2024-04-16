@@ -18,6 +18,16 @@ export const generateYearArray = (jumlahTahun = 5) => {
 	return years;
 };
 
+export const yearNowFrom = (from) => {
+	const currentYear = new Date().getFullYear();
+	const iteration = currentYear - from
+	const years = [];
+	for (let i = currentYear; i >= currentYear - iteration; i--) {
+		years.push(i);
+	}
+	return years;
+};
+
 export const getUserUuid = () => {
 	const token = sessionStorage.getItem("token");
 	if (token == null) {
@@ -72,7 +82,7 @@ export const filterMahasiswa = (filter, data, option) => {
 
 	if (filter == "pembagian_kelas") {
 		result = data.filter((item) => {
-			return item.angkatan > option;
+			return item.angkatan >= option;
 		});
 	}
 

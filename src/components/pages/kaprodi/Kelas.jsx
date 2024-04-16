@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, CardBody, Form, Table } from "react-bootstrap";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
 import toast from "react-hot-toast";
-import { filterMahasiswa, generateYearArray } from "../../utils/Helpers";
+import {
+	filterMahasiswa,
+	generateYearArray,
+	sortJSON,
+	yearNowFrom,
+} from "../../utils/Helpers";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 
@@ -16,8 +21,7 @@ export const KelasAll = () => {
 		kelas: "",
 	});
 
-	const years = generateYearArray(3);
-	const currentYear = new Date().getFullYear();
+	const [years, setYears] = useState(null);
 
 	const handleChangeOptions = (e) => {
 		setOptions({ ...options, [e.target.name]: e.target.value });
@@ -26,12 +30,30 @@ export const KelasAll = () => {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`);
-			setMahasiswa(
-				filterMahasiswa("pembagian_kelas", res.data, currentYear - 3)
+			const res2 = await fetchAPI("/api/pengaturan/angkatan_kelas");
+			const batasAngkatan = res2.data.value;
+
+			const res = await fetchAPI(
+				`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`
 			);
+
+			res?.data && sortJSON(res.data, "nim", "asc");
+
+			const mahasiswaFiltered = filterMahasiswa(
+				"pembagian_kelas",
+				res.data,
+				batasAngkatan
+			);
+
+			setMahasiswa(mahasiswaFiltered);
+			setValues(mahasiswaFiltered);
+
+			const yearsOpt = yearNowFrom(batasAngkatan);
+			setYears(yearsOpt);
+			
 			const classes = await fetchAPI("/api/classes");
 			setClasses(classes.data);
+
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
