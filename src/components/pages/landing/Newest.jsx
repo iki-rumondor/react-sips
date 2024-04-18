@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { Card, CardBody, CardHeader, Form, Table } from "react-bootstrap";
 import { Topbar } from "./Topbar";
 import { fetchAPI } from "../../utils/Fetching";
 import toast from "react-hot-toast";
@@ -10,13 +10,16 @@ export const NewestLanding = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [dropout, setDropout] = useState(null);
 	const [percepatan, setPercepatan] = useState(null);
+	const [prodi, setProdi] = useState(null);
+	const [selectProdi, setSelectProdi] = useState("");
 	const { setIsLoading } = useLoading();
+
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI("/api/percepatan");
-			setPercepatan(res.data);
 			const res2 = await fetchAPI("/api/mahasiswa");
+			const res3 = await fetchAPI("/api/prodi");
+			setProdi(res3.data);
 			setDropout(filterMahasiswa("do", res2.data));
 			setMahasiswa(res2.data);
 		} catch (error) {
@@ -25,9 +28,29 @@ export const NewestLanding = () => {
 			setIsLoading(false);
 		}
 	};
+
+	const handleLoadPercepatan = async () => {
+		try {
+			setIsLoading(true);
+			const res = await fetchAPI(`/api/percepatan/prodi/${selectProdi}`);
+			setPercepatan(res.data);
+		} catch (error) {
+			toast.error(error.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	useEffect(() => {
 		handleLoad();
 	}, []);
+
+	useEffect(() => {
+		if(selectProdi){
+			handleLoadPercepatan();
+		}
+	}, [selectProdi]);
+
 	const info = [
 		{
 			name: "Jumlah Mahasiswa",
@@ -134,29 +157,54 @@ export const NewestLanding = () => {
 				<div className="font-weight-bold mb-4 text-center h5">
 					Mahasiswa Percepatan Studi
 				</div>
-				<Table className="table-bordered">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>NIM</th>
-							<th>Nama Mahasiswa</th>
-							<th>Angkatan</th>
-							<th>Ipk</th>
-						</tr>
-					</thead>
-					<tbody>
-						{percepatan &&
-							percepatan.map((item, idx) => (
-								<tr key={idx}>
-									<td>{idx + 1}</td>
-									<td>{item.nim}</td>
-									<td>{item.nama}</td>
-									<td>{item.angkatan}</td>
-									<td>{item.ipk}</td>
+				<Card>
+					<CardHeader>
+						<Form.Group controlId="prodi">
+							<Form.Control
+								as="select"
+								value={selectProdi}
+								onChange={(e) => {
+									setSelectProdi(e.target.value);
+								}}
+							>
+								<option value="" disabled>
+									---Pilih Program Studi---
+								</option>
+								{prodi &&
+									prodi.map((item) => (
+										<option key={item.uuid} value={item.uuid}>
+											{item.name}
+										</option>
+									))}
+							</Form.Control>
+						</Form.Group>
+					</CardHeader>
+					<CardBody>
+						<Table className="table-bordered">
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>NIM</th>
+									<th>Nama Mahasiswa</th>
+									<th>Angkatan</th>
+									<th>Ipk</th>
 								</tr>
-							))}
-					</tbody>
-				</Table>
+							</thead>
+							<tbody>
+								{percepatan &&
+									percepatan.map((item, idx) => (
+										<tr key={idx}>
+											<td>{idx + 1}</td>
+											<td>{item.nim}</td>
+											<td>{item.nama}</td>
+											<td>{item.angkatan}</td>
+											<td>{item.ipk}</td>
+										</tr>
+									))}
+							</tbody>
+						</Table>
+					</CardBody>
+				</Card>
 			</section>
 			<section className="px-5 mb-5" style={{ marginTop: "100px" }}>
 				<div className="font-weight-bold mb-4 text-center h5">
@@ -170,6 +218,7 @@ export const NewestLanding = () => {
 							<th>Nama Mahasiswa</th>
 							<th>Angkatan</th>
 							<th>Ipk</th>
+							<th>Program Studi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -181,6 +230,7 @@ export const NewestLanding = () => {
 									<td>{item.nama}</td>
 									<td>{item.angkatan}</td>
 									<td>{item.ipk}</td>
+									<td>{item.prodi}</td>
 								</tr>
 							))}
 					</tbody>

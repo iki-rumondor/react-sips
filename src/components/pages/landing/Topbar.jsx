@@ -64,7 +64,7 @@ export const Topbar = () => {
 				></i>
 			</div>
 			<div className={classNames("sidenav", show && "side-active")}>
-				<a class="closebtn" onClick={() => setShow(false)}>
+				<a className="closebtn" onClick={() => setShow(false)}>
 					&times;
 				</a>
 				{role ? (
@@ -76,7 +76,7 @@ export const Topbar = () => {
 					<a
 						key={idx}
 						href={item.href}
-						className={`/${loc.hash}` == item.href && "active-link"}
+						className={`/${loc.hash}` == item.href ? "active-link" : ''}
 					>
 						{item.name}
 					</a>

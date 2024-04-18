@@ -58,7 +58,7 @@ export const KelasJurusan = () => {
 	const handlePrint = async () => {
 		try {
 			setIsLoading(true);
-			const res = await pdfAPI("/kelas", mahasiswa);
+			const res = await pdfAPI("/kelas", values);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -137,6 +137,7 @@ export const KelasJurusan = () => {
 										<th>No</th>
 										<th>NIM</th>
 										<th>Nama Mahasiswa</th>
+										<th>Prodi</th>
 										<th>Kelas</th>
 									</tr>
 								</thead>
@@ -146,6 +147,7 @@ export const KelasJurusan = () => {
 											<td>{idx + 1}</td>
 											<td>{item.nim}</td>
 											<td>{item.nama}</td>
+											<td>{item.prodi}</td>
 											<td>{item?.kelas ?? "-"}</td>
 										</tr>
 									))}

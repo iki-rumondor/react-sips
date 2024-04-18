@@ -46,6 +46,7 @@ export const DropoutLanding = () => {
 								<th>Nama Mahasiswa</th>
 								<th>Angkatan</th>
 								<th>Ipk</th>
+								<th>Prodi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -56,6 +57,7 @@ export const DropoutLanding = () => {
 									<td>{item.nama}</td>
 									<td>{item.angkatan}</td>
 									<td>{item.ipk}</td>
+									<td>{item.prodi}</td>
 								</tr>
 							))}
 						</tbody>

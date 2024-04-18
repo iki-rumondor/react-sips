@@ -37,6 +37,8 @@ export const KelasAll = () => {
 				`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`
 			);
 
+			console.log(res.data);
+
 			res?.data && sortJSON(res.data, "nim", "asc");
 
 			const mahasiswaFiltered = filterMahasiswa(
@@ -50,7 +52,7 @@ export const KelasAll = () => {
 
 			const yearsOpt = yearNowFrom(batasAngkatan);
 			setYears(yearsOpt);
-			
+
 			const classes = await fetchAPI("/api/classes");
 			setClasses(classes.data);
 
@@ -68,7 +70,7 @@ export const KelasAll = () => {
 	const handlePrint = async () => {
 		try {
 			setIsLoading(true);
-			const res = await pdfAPI("/kelas", mahasiswa);
+			const res = await pdfAPI("/kelas", values);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
