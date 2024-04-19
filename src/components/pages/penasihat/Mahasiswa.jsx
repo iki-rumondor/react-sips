@@ -4,13 +4,14 @@ import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
-import { getUserUuid } from "../../utils/Helpers";
+import { getUserUuid, searchMahasiswa } from "../../utils/Helpers";
 import DetailMahasiswa from "./DetailMahasiswa";
 
 export default function PenasihatMahasiswa() {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [values, setValues] = useState(null);
 	const { isLoading, setIsLoading } = useLoading();
+	const [keyword, setKeyword] = useState("");
 	const [filter, setFilter] = useState("all");
 	const options = [
 		{ name: "Semua Mahasiswa", value: "all" },
@@ -101,6 +102,18 @@ export default function PenasihatMahasiswa() {
 									<i className="fas fa-print"></i>{" "}
 									<span className="ml-2">Cetak</span>
 								</Button>
+								<Form.Group
+									controlId="search"
+									className="mb-3 mt-2"
+								>
+									<Form.Control
+										onChange={(e) => {
+											setKeyword(e.target.value);
+										}}
+										value={keyword}
+										placeholder="Cari Nama, NIM, atau Angkatan"
+									/>
+								</Form.Group>
 								<Table className="table-bordered">
 									<thead>
 										<tr>
@@ -113,7 +126,7 @@ export default function PenasihatMahasiswa() {
 									</thead>
 									<tbody>
 										{values &&
-											values.map((item, idx) => {
+											searchMahasiswa(values, keyword).map((item, idx) => {
 												return (
 													<tr key={idx}>
 														<td>{idx + 1}</td>

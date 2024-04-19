@@ -21,7 +21,6 @@ export const DashboardPenasihat = () => {
 			const dashboard = await fetchAPI(
 				`/api/dashboard/penasihat/${uuid}`
 			);
-			console.log(dashboard.data);
 			const user = await fetchAPI(`/api/user/${uuid}`);
 			setData(res.data);
 			setDashboard(dashboard.data);
@@ -47,10 +46,10 @@ export const DashboardPenasihat = () => {
 						value={data?.length}
 					/>
 					<CardDashboard
-						title={"Nomor Induk Pegawai"}
+						title={"Program Studi"}
 						icon="fa-users"
 						color="danger"
-						value={user?.penasihat?.nip}
+						value={dashboard?.prodi}
 					/>
 				</div>
 				<div className="row">

@@ -4,7 +4,10 @@ import NotificationDropdown from "../module/dropdown/Notification";
 import ProfileDropdown from "../module/dropdown/Profile";
 
 export default function Navbar() {
-	const role = sessionStorage.getItem("role");
+	let role = sessionStorage.getItem("role");
+	if (role == "ADMIN") {
+		role = "KAJUR";
+	}
 	return (
 		<div className="main-wrapper">
 			<div className="navbar-bg"></div>

@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, CardBody, Form, Table } from "react-bootstrap";
+import {
+	Button,
+	Card,
+	CardBody,
+	Form,
+	InputGroup,
+	Table,
+} from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
-import { filterMahasiswa, getUserUuid } from "../../utils/Helpers";
+import {
+	filterMahasiswa,
+	getUserUuid,
+	searchMahasiswa,
+} from "../../utils/Helpers";
 import DetailMahasiswa from "./DetailMahasiswa";
 
 export default function MahasiswaJurusan() {
@@ -12,6 +23,7 @@ export default function MahasiswaJurusan() {
 	const [values, setValues] = useState(null);
 	const { setIsLoading } = useLoading();
 	const [filter, setFilter] = useState("");
+	const [keyword, setKeyword] = useState("");
 	const options = [
 		{ name: "Semua Mahasiswa", value: "" },
 		{ name: "Mahasiswa Percepatan", value: "percepatan" },
@@ -101,6 +113,18 @@ export default function MahasiswaJurusan() {
 									<i className="fas fa-print"></i>{" "}
 									<span className="ml-2">Cetak</span>
 								</Button>
+								<Form.Group
+									controlId="search"
+									className="mb-3 mt-2"
+								>
+									<Form.Control
+										onChange={(e) => {
+											setKeyword(e.target.value);
+										}}
+										value={keyword}
+										placeholder="Cari Nama, NIM, atau Angkatan"
+									/>
+								</Form.Group>
 								<Table className="table-bordered">
 									<thead>
 										<tr>
@@ -108,18 +132,20 @@ export default function MahasiswaJurusan() {
 											<th>Nim</th>
 											<th>Nama</th>
 											<th>Angkatan</th>
+											<th>Prodi</th>
 											<th>Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
-										{values &&
-											values.map((item, idx) => {
+										{searchMahasiswa(values, keyword).map(
+											(item, idx) => {
 												return (
 													<tr key={idx}>
 														<td>{idx + 1}</td>
 														<td>{item.nim}</td>
 														<td>{item.nama}</td>
 														<td>{item.angkatan}</td>
+														<td>{item.prodi}</td>
 														<td>
 															<DetailMahasiswa
 																uuid={item.uuid}
@@ -127,7 +153,8 @@ export default function MahasiswaJurusan() {
 														</td>
 													</tr>
 												);
-											})}
+											}
+										)}
 									</tbody>
 								</Table>
 							</CardBody>

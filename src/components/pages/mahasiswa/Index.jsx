@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
-import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
+import { Card, CardBody, Dropdown, Form, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { fetchAPI } from "../../utils/Fetching";
 import Import from "./Import";
@@ -9,10 +9,11 @@ import Edit from "./Edit";
 import useLoading from "../../hooks/useLoading";
 import Delete from "./Delete";
 import DeleteAll from "./DeleteAll";
-import { sortJSON } from "../../utils/Helpers";
+import { searchMahasiswa, sortJSON } from "../../utils/Helpers";
 
 export default function Mahasiswa() {
 	const [values, setValues] = useState([]);
+	const [keyword, setKeyword] = useState("");
 	const { isLoading, isSuccess } = useLoading();
 
 	const handleLoad = async () => {
@@ -40,6 +41,15 @@ export default function Mahasiswa() {
 				</div>
 				<Card>
 					<CardBody>
+						<Form.Group controlId="search" className="mb-3 mt-2">
+							<Form.Control
+								onChange={(e) => {
+									setKeyword(e.target.value);
+								}}
+								value={keyword}
+								placeholder="Cari Nama, NIM, atau Angkatan"
+							/>
+						</Form.Group>
 						<Table className="table-bordered">
 							<thead>
 								<tr>
@@ -52,7 +62,7 @@ export default function Mahasiswa() {
 							</thead>
 							<tbody>
 								{values &&
-									values.map((item, idx) => (
+									searchMahasiswa(values, keyword).map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
 											<td>{item.nim}</td>

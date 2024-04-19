@@ -4,7 +4,12 @@ import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
-import { filterMahasiswa, getUserUuid } from "../../utils/Helpers";
+import {
+	filterMahasiswa,
+	getUserUuid,
+	searchMahasiswa,
+	sortJSON,
+} from "../../utils/Helpers";
 import DetailMahasiswa from "./DetailMahasiswa";
 
 export default function MahasiswaAll() {
@@ -12,6 +17,7 @@ export default function MahasiswaAll() {
 	const [values, setValues] = useState(null);
 	const { setIsLoading } = useLoading();
 	const [filter, setFilter] = useState("");
+	const [keyword, setKeyword] = useState("");
 	const options = [
 		{ name: "Semua Mahasiswa", value: "" },
 		{ name: "Mahasiswa Percepatan", value: "percepatan" },
@@ -25,8 +31,10 @@ export default function MahasiswaAll() {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`);
-			setValues(res?.data);
+			const res = await fetchAPI(
+				`/api/mahasiswa/prodi/${sessionStorage.getItem("uuid")}`
+			);
+			setValues(sortJSON(res?.data, "nim", "asc"));
 			setMahasiswa(res?.data);
 		} catch (error) {
 			toast.error(error?.message);
@@ -101,6 +109,18 @@ export default function MahasiswaAll() {
 									<i className="fas fa-print"></i>{" "}
 									<span className="ml-2">Cetak</span>
 								</Button>
+								<Form.Group
+									controlId="search"
+									className="mb-3 mt-2"
+								>
+									<Form.Control
+										onChange={(e) => {
+											setKeyword(e.target.value);
+										}}
+										value={keyword}
+										placeholder="Cari Nama, NIM, atau Angkatan"
+									/>
+								</Form.Group>
 								<Table className="table-bordered">
 									<thead>
 										<tr>
@@ -112,8 +132,8 @@ export default function MahasiswaAll() {
 										</tr>
 									</thead>
 									<tbody>
-										{values &&
-											values.map((item, idx) => {
+										{searchMahasiswa(values, keyword).map(
+											(item, idx) => {
 												return (
 													<tr key={idx}>
 														<td>{idx + 1}</td>
@@ -127,7 +147,8 @@ export default function MahasiswaAll() {
 														</td>
 													</tr>
 												);
-											})}
+											}
+										)}
 									</tbody>
 								</Table>
 							</CardBody>

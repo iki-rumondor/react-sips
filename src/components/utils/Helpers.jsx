@@ -20,7 +20,7 @@ export const generateYearArray = (jumlahTahun = 5) => {
 
 export const yearNowFrom = (from) => {
 	const currentYear = new Date().getFullYear();
-	const iteration = currentYear - from
+	const iteration = currentYear - from;
 	const years = [];
 	for (let i = currentYear; i >= currentYear - iteration; i--) {
 		years.push(i);
@@ -117,4 +117,13 @@ export const sortJSON = (jsonData, sortBy, sortOrder) => {
 	});
 
 	return jsonData;
+};
+
+export const searchMahasiswa = (data, keyword) => {
+	return data.filter(
+		(mhs) =>
+			mhs.nama.toLowerCase().includes(keyword.toLowerCase()) ||
+			mhs.nim.includes(keyword) ||
+			mhs.angkatan.includes(keyword)
+	);
 };
