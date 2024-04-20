@@ -68,7 +68,7 @@ export const filterMahasiswa = (filter, data, option) => {
 
 	let result = data;
 	if (filter == "percepatan") {
-		result = data.filter((item) => {
+		result = sortJSON(data, "ipk", "desc").filter((item) => {
 			return item.percepatan;
 		});
 	}

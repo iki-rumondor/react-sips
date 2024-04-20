@@ -10,6 +10,7 @@ export const NewestLanding = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [dropout, setDropout] = useState(null);
 	const [percepatan, setPercepatan] = useState(null);
+	const [allPercepatan, setAllPercepatan] = useState(null);
 	const [prodi, setProdi] = useState(null);
 	const [selectProdi, setSelectProdi] = useState("");
 	const { setIsLoading } = useLoading();
@@ -17,8 +18,11 @@ export const NewestLanding = () => {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
+			const res = await fetchAPI("/api/percepatan");
 			const res2 = await fetchAPI("/api/mahasiswa");
 			const res3 = await fetchAPI("/api/prodi");
+			setAllPercepatan(res.data);
+			setProdi(res3.data);
 			setProdi(res3.data);
 			setDropout(filterMahasiswa("do", res2.data));
 			setMahasiswa(res2.data);
@@ -60,7 +64,7 @@ export const NewestLanding = () => {
 		{
 			name: "Lolos Percepatan Studi",
 			icon: "graduation.png",
-			value: percepatan?.length,
+			value: allPercepatan?.length,
 		},
 		{
 			name: "Terancam Drop Out",
