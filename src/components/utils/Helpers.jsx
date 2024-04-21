@@ -66,7 +66,7 @@ export const filterMahasiswa = (filter, data, option) => {
 		return;
 	}
 
-	let result = data;
+	let result = sortJSON(data, "nim", "asc");
 	if (filter == "percepatan") {
 		result = sortJSON(data, "ipk", "desc").filter((item) => {
 			return item.percepatan;
@@ -76,7 +76,7 @@ export const filterMahasiswa = (filter, data, option) => {
 	if (filter == "do") {
 		const currentYear = new Date().getFullYear();
 		result = data.filter((item) => {
-			return item.angkatan < currentYear - 5;
+			return item.angkatan <= currentYear - 5;
 		});
 	}
 
@@ -126,4 +126,15 @@ export const searchMahasiswa = (data, keyword) => {
 			mhs.nim.includes(keyword) ||
 			mhs.angkatan.includes(keyword)
 	);
+};
+
+export const setPeringatan = (angkatan) => {
+	const currentYear = new Date().getFullYear();
+	if (angkatan <= currentYear - 7) {
+		return 2;
+	}
+	if (angkatan <= currentYear - 6) {
+		return 1;
+	}
+	return 0;
 };
