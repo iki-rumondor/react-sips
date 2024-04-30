@@ -29,13 +29,14 @@ import { NewLogin } from "./components/pages/auth/NewLogin";
 import { MasterProdi } from "./components/pages/admin/MasterProdi";
 import { KelasJurusan } from "./components/pages/kajur/Kelas";
 import MahasiswaJurusan from "./components/pages/kajur/Mahasiswa";
+import { MasterUser } from "./components/pages/admin/MasterUser";
 
 export const Router = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route element={<RequireAuth />}>
-					<Route element={<RoleAuth name={"ADMIN"} />}>
+					<Route element={<RoleAuth name={"KAJUR"} />}>
 						<Route path="/home/admin" Component={Home}></Route>
 						<Route path="/tahun-ajaran" element={<TahunAjaran />} />
 						<Route path="/mahasiswa" element={<Mahasiswa />} />
@@ -57,13 +58,19 @@ export const Router = () => {
 						/>
 						<Route
 							path="/kajur/mahasiswa"
-							element={<MahasiswaJurusan />}
+							element={<MahasiswaJurusan	 />}
 						/>
 					</Route>
 					<Route element={<RoleAuth name={"MAHASISWA"} />}>
 						<Route
 							path="/home/mahasiswa"
 							element={<DashboardMahasiswa />}
+						/>
+					</Route>
+					<Route element={<RoleAuth name={"ADMIN"} />}>
+						<Route
+							path="/admin/user"
+							element={<MasterUser />}
 						/>
 					</Route>
 					<Route element={<RoleAuth name={"PA"} />}>

@@ -1,6 +1,6 @@
 export const HomeController = () => {
 	const role = sessionStorage.getItem("role");
-	if (role === "ADMIN") {
+	if (role === "KAJUR") {
 		window.location.href = "/home/admin";
 		return;
 	}
@@ -12,6 +12,11 @@ export const HomeController = () => {
 
 	if (role === "PA") {
 		window.location.href = "/home/penasihat";
+		return;
+	}
+
+	if (role === "ADMIN") {
+		window.location.href = "/admin/user";
 		return;
 	}
 

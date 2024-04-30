@@ -101,7 +101,7 @@ export const NewLogin = () => {
 								type="text"
 								className="form-control"
 								id="username"
-								placeholder="Masukkan NIM atau NIP"
+								placeholder="Masukkan Username"
 								value={values.username}
 								onChange={(e) =>
 									setValues({
@@ -110,9 +110,6 @@ export const NewLogin = () => {
 									})
 								}
 							/>
-							<small>
-								NIM untuk Mahasiswa dan NIP untuk Dosen PA
-							</small>
 						</div>
 						<div className="form-group">
 							<label for="password">

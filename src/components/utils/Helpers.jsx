@@ -128,6 +128,24 @@ export const searchMahasiswa = (data, keyword) => {
 	);
 };
 
+export const searchPengguna = (data, keyword) => {
+	return data.filter(
+		(mhs) =>
+			mhs.role.toLowerCase().includes(keyword.toLowerCase()) ||
+			mhs.username.toLowerCase().includes(keyword.toLowerCase())
+	);
+};
+
+export const filterHasKajur = (data) => {
+	let result = false
+	data.map((item) => {
+		if (item.role == "KAJUR") {
+			result = true;
+		}
+	});
+	return result
+};
+
 export const setPeringatan = (angkatan) => {
 	const currentYear = new Date().getFullYear();
 	if (angkatan <= currentYear - 7) {

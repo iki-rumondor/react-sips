@@ -5,9 +5,6 @@ import ProfileDropdown from "../module/dropdown/Profile";
 
 export default function Navbar() {
 	let role = sessionStorage.getItem("role");
-	if (role == "ADMIN") {
-		role = "KAJUR";
-	}
 	return (
 		<div className="main-wrapper">
 			<div className="navbar-bg"></div>
