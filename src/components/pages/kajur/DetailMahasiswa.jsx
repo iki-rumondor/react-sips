@@ -59,10 +59,6 @@ export default function DetailMahasiswa({ uuid }) {
 								value={values?.total_sks}
 							/>
 							<ListKeyValue keys={"IPK"} value={values?.ipk} />
-							<ListKeyValue
-								keys={"Jumlah Error"}
-								value={values?.jumlah_error}
-							/>
 						</>
 					)}
 				</Modal.Body>

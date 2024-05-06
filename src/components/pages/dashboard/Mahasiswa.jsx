@@ -6,6 +6,7 @@ import { fetchAPI } from "../../utils/Fetching";
 import { MahasiswaProfile } from "../../layout/MahasiswaProfile";
 import { HeroSection } from "../../module/Hero";
 import { setPeringatan } from "../../utils/Helpers";
+import { Card, CardBody, CardHeader } from "react-bootstrap";
 
 export const DashboardMahasiswa = () => {
 	const uuid = sessionStorage.getItem("uuid");
@@ -42,7 +43,9 @@ export const DashboardMahasiswa = () => {
 					<div className="row">
 						<HeroSection
 							variant="danger"
-							title={peringatan[setPeringatan(data?.angkatan)]?.title}
+							title={
+								peringatan[setPeringatan(data?.angkatan)]?.title
+							}
 							subtitle={
 								"Anda termasuk mahasiswa yang terancam drop out, segera selesaikan skripsi"
 							}
@@ -60,6 +63,25 @@ export const DashboardMahasiswa = () => {
 						/>
 					</div>
 				)}
+				{data?.rekomendasi && (
+					<div className="row">
+						<div className="col-12">
+							<Card
+								className="border-primary"
+								style={{ borderLeft: "3px solid" }}
+							>
+								<CardHeader>
+									<h4>Pemberitahuan</h4>
+								</CardHeader>
+								<CardBody>
+									Anda Direkomendasikan Oleh Pembimbing
+									Akademik Untuk Masuk Ke Program Percepatan
+								</CardBody>
+							</Card>
+						</div>
+					</div>
+				)}
+
 				<div className="row">
 					<MahasiswaProfile data={data} />
 				</div>

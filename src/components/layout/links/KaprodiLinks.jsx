@@ -14,6 +14,10 @@ export const KaprodiLinks = () => {
 			<Sidebar.Link path={"/kaprodi/master/penasihat"} icon={"fa-user"}>
 				Pembimbing Akademik
 			</Sidebar.Link>
+			<Sidebar.HeaderLink>Mahasiswa</Sidebar.HeaderLink>
+			<Sidebar.Link path={"/kaprodi/rekomendasi"} icon={"fa-user"}>
+				Rekomendasi PA
+			</Sidebar.Link>
 			<Sidebar.HeaderLink>Output</Sidebar.HeaderLink>
 			<Sidebar.Link path={"/kaprodi/mahasiswa"} icon={"fa-user"}>
 				Data Mahasiswa

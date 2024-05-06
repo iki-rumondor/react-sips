@@ -30,6 +30,8 @@ import { MasterProdi } from "./components/pages/admin/MasterProdi";
 import { KelasJurusan } from "./components/pages/kajur/Kelas";
 import MahasiswaJurusan from "./components/pages/kajur/Mahasiswa";
 import { MasterUser } from "./components/pages/admin/MasterUser";
+import { MahasiswaPotensial } from "./components/pages/penasihat/Potensial";
+import { RekomendasiPA } from "./components/pages/kaprodi/Rekomendasi";
 
 export const Router = () => {
 	return (
@@ -52,13 +54,10 @@ export const Router = () => {
 							element={<SettingPercepatan />}
 						/>
 						<Route path="/prodi" element={<MasterProdi />} />
-						<Route
-							path="/kajur/kelas"
-							element={<KelasJurusan />}
-						/>
+						<Route path="/kajur/kelas" element={<KelasJurusan />} />
 						<Route
 							path="/kajur/mahasiswa"
-							element={<MahasiswaJurusan	 />}
+							element={<MahasiswaJurusan />}
 						/>
 					</Route>
 					<Route element={<RoleAuth name={"MAHASISWA"} />}>
@@ -68,10 +67,7 @@ export const Router = () => {
 						/>
 					</Route>
 					<Route element={<RoleAuth name={"ADMIN"} />}>
-						<Route
-							path="/admin/user"
-							element={<MasterUser />}
-						/>
+						<Route path="/admin/user" element={<MasterUser />} />
 					</Route>
 					<Route element={<RoleAuth name={"PA"} />}>
 						<Route
@@ -85,6 +81,10 @@ export const Router = () => {
 						<Route
 							path="/penasihat/mahasiswa"
 							element={<PenasihatMahasiswa />}
+						/>
+						<Route
+							path="/penasihat/potensial"
+							element={<MahasiswaPotensial />}
 						/>
 					</Route>
 					<Route element={<RoleAuth name={"KAPRODI"} />}>
@@ -106,6 +106,10 @@ export const Router = () => {
 							element={<MahasiswaAll />}
 						/>
 						<Route path="/kaprodi/kelas" element={<KelasAll />} />
+						<Route
+							path="/kaprodi/rekomendasi"
+							element={<RekomendasiPA />}
+						/>
 					</Route>
 					<Route path="/home" element={<HomeController />} />
 					<Route path="/logout" element={<Logout />} />

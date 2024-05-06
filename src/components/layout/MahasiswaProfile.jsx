@@ -1,4 +1,6 @@
+import classNames from "classnames";
 import { ListGroupKeyValue } from "../module/List";
+import { hitungSemester } from "../utils/Helpers";
 import avatar from "/src/assets/img/avatar/avatar-1.png";
 
 export const MahasiswaProfile = ({ data }) => {
@@ -28,10 +30,17 @@ export const MahasiswaProfile = ({ data }) => {
 						</div>
 						<div className="profile-widget-item">
 							<div className="profile-widget-item-label">
-								MK Error
+								Semester
 							</div>
-							<div className="profile-widget-item-value text-danger">
-								{data?.jumlah_error}
+							<div
+								className={classNames(
+									"profile-widget-item-value",
+									hitungSemester(data?.angkatan) > 8
+										? "text-danger"
+										: "text-success"
+								)}
+							>
+								{hitungSemester(data?.angkatan)}
 							</div>
 						</div>
 					</div>

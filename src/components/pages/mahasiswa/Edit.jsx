@@ -152,15 +152,6 @@ export default function Edit({ uuid }) {
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Form.Group className="mb-3" controlId="jumlah_error">
-							<Form.Label>Jumlah Error</Form.Label>
-							<Form.Control
-								name="jumlah_error"
-								value={values?.jumlah_error}
-								type="text"
-								onChange={handleChange}
-							/>
-						</Form.Group>
 					</Modal.Body>
 					<Modal.Footer>
 						<Button variant="secondary" onClick={handleClose}>

@@ -28,6 +28,20 @@ export const yearNowFrom = (from) => {
 	return years;
 };
 
+export const hitungSemester = (angkatan) => {
+	var tahunSekarang = new Date().getFullYear();
+	var tahunMasuk = parseInt(angkatan);
+	var tahunBerlalu = tahunSekarang - tahunMasuk;
+
+	var jumlahSemester = tahunBerlalu * 2;
+
+	if (new Date().getMonth() >= 6) {
+		jumlahSemester += 1;
+	}
+
+	return jumlahSemester;
+};
+
 export const getUserUuid = () => {
 	const token = sessionStorage.getItem("token");
 	if (token == null) {
@@ -77,6 +91,20 @@ export const filterMahasiswa = (filter, data, option) => {
 		const currentYear = new Date().getFullYear();
 		result = data.filter((item) => {
 			return item.angkatan <= currentYear - 5;
+		});
+	}
+
+	if (filter == "rekomendasi") {
+		result = data.filter((item) => {
+			return item.rekomendasi;
+		});
+	}
+
+	if (filter == "potensial") {
+		result = data.filter((item) => {
+			return (
+				item.ipk > 3.5 && item.angkatan >= option && !item.rekomendasi
+			);
 		});
 	}
 
@@ -137,13 +165,13 @@ export const searchPengguna = (data, keyword) => {
 };
 
 export const filterHasKajur = (data) => {
-	let result = false
+	let result = false;
 	data.map((item) => {
 		if (item.role == "KAJUR") {
 			result = true;
 		}
 	});
-	return result
+	return result;
 };
 
 export const setPeringatan = (angkatan) => {

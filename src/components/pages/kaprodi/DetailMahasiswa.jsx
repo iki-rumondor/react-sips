@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { ListKeyValue } from "../../module/List";
 import { fetchAPI } from "../../utils/Fetching";
+import { hitungSemester } from "../../utils/Helpers";
 
 export default function DetailMahasiswa({ uuid }) {
 	const [show, setShow] = useState(false);
@@ -55,14 +56,14 @@ export default function DetailMahasiswa({ uuid }) {
 								value={values?.angkatan}
 							/>
 							<ListKeyValue
+								keys={"Semester"}
+								value={hitungSemester(values?.angkatan)}
+							/>
+							<ListKeyValue
 								keys={"Total SKS"}
 								value={values?.total_sks}
 							/>
 							<ListKeyValue keys={"IPK"} value={values?.ipk} />
-							<ListKeyValue
-								keys={"Jumlah Error"}
-								value={values?.jumlah_error}
-							/>
 						</>
 					)}
 				</Modal.Body>
