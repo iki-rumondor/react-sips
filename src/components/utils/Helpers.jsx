@@ -103,7 +103,7 @@ export const filterMahasiswa = (filter, data, option) => {
 	if (filter == "potensial") {
 		result = data.filter((item) => {
 			return (
-				item.ipk > 3.5 && item.angkatan >= option && !item.rekomendasi
+				item.ipk > 3.5 && item.angkatan > option && !item.rekomendasi
 			);
 		});
 	}
