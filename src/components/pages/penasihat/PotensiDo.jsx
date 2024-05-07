@@ -7,7 +7,7 @@ import DetailMahasiswa from "./DetailMahasiswa";
 import useLoading from "../../hooks/useLoading";
 import { filterMahasiswa } from "../../utils/Helpers";
 
-export const MahasiswaPotensial = () => {
+export const PotensiDo = () => {
 	const { setIsLoading, isSuccess, setIsSuccess } = useLoading();
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [selectedUuid, setSelectedUuid] = useState("");
@@ -22,10 +22,7 @@ export const MahasiswaPotensial = () => {
 		try {
 			const uuid = sessionStorage.getItem("uuid");
 			const res = await fetchAPI(`/api/mahasiswa/penasihat/${uuid}`);
-			const res2 = await fetchAPI(`/api/pengaturan/angkatan_percepatan`);
-			setMahasiswa(
-				filterMahasiswa("potensial", res.data, res2.data.value)
-			);
+			setMahasiswa(filterMahasiswa("potensial_do", res.data));
 		} catch (error) {
 			toast.error(error?.message);
 		}
@@ -37,7 +34,7 @@ export const MahasiswaPotensial = () => {
 			uuid_pembimbing: sessionStorage.getItem("uuid"),
 		};
 		try {
-			setOpen(!open)
+			setOpen(!open);
 			setIsLoading(true);
 			setIsSuccess(false);
 			const res = await postData(
@@ -60,7 +57,7 @@ export const MahasiswaPotensial = () => {
 
 	return (
 		<>
-			<DashboardLayout header={"Mahasiswa Potensial Mengikuti Percepatan Studi"}>
+			<DashboardLayout header={"Mahasiswa Berpotensi Drop Out"}>
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -83,17 +80,6 @@ export const MahasiswaPotensial = () => {
 												<td>{item.nama}</td>
 												<td>{item.angkatan}</td>
 												<td>
-													<Button
-														className="mr-1 btn-sm"
-														variant="success"
-														onClick={() =>
-															handleOpen(
-																item.uuid
-															)
-														}
-													>
-														Rekomendasi
-													</Button>
 													<DetailMahasiswa
 														uuid={item.uuid}
 													/>

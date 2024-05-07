@@ -108,6 +108,25 @@ export const filterMahasiswa = (filter, data, option) => {
 		});
 	}
 
+	if (filter == "potensial_do") {
+		result = data.filter((item) => {
+			if (hitungSemester(item.angkatan) <= 8 && item.ipk < 2.5) {
+				return true;
+			}
+
+			for (let index = 4; index <= 8; index++) {
+				if (
+					hitungSemester(item.angkatan) == index &&
+					item.total_sks < 20 * (index - 1)
+				) {
+					return true;
+				}
+			}
+
+			return false;
+		});
+	}
+
 	if (filter == "pembagian_kelas") {
 		result = data.filter((item) => {
 			return item.angkatan >= option;

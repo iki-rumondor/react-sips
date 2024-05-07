@@ -32,6 +32,7 @@ import MahasiswaJurusan from "./components/pages/kajur/Mahasiswa";
 import { MasterUser } from "./components/pages/admin/MasterUser";
 import { MahasiswaPotensial } from "./components/pages/penasihat/Potensial";
 import { RekomendasiPA } from "./components/pages/kaprodi/Rekomendasi";
+import { PotensiDo } from "./components/pages/penasihat/PotensiDo";
 
 export const Router = () => {
 	return (
@@ -85,6 +86,10 @@ export const Router = () => {
 						<Route
 							path="/penasihat/potensial"
 							element={<MahasiswaPotensial />}
+						/>
+						<Route
+							path="/penasihat/dropout"
+							element={<PotensiDo />}
 						/>
 					</Route>
 					<Route element={<RoleAuth name={"KAPRODI"} />}>

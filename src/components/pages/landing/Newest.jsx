@@ -10,6 +10,10 @@ export const NewestLanding = () => {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [dropout, setDropout] = useState(null);
 	const [percepatan, setPercepatan] = useState(null);
+	const [pengaturan, setPengaturan] = useState({
+		ipk: "3.00",
+		sks: "100",
+	});
 	const [allPercepatan, setAllPercepatan] = useState(null);
 	const [prodi, setProdi] = useState(null);
 	const [selectProdi, setSelectProdi] = useState("");
@@ -21,11 +25,17 @@ export const NewestLanding = () => {
 			const res = await fetchAPI("/api/percepatan");
 			const res2 = await fetchAPI("/api/mahasiswa");
 			const res3 = await fetchAPI("/api/prodi");
+			const res4 = await fetchAPI("/api/pengaturan/ipk");
+			const res5 = await fetchAPI("/api/pengaturan/total_sks");
 			setAllPercepatan(res.data);
 			setProdi(res3.data);
 			setProdi(res3.data);
 			setDropout(filterMahasiswa("do", res2.data));
 			setMahasiswa(res2.data);
+			setPengaturan({
+				ipk: res4.data.value,
+				sks: res5.data.value,
+			});
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -50,7 +60,7 @@ export const NewestLanding = () => {
 	}, []);
 
 	useEffect(() => {
-		if(selectProdi){
+		if (selectProdi) {
 			handleLoadPercepatan();
 		}
 	}, [selectProdi]);
@@ -149,9 +159,9 @@ export const NewestLanding = () => {
 						<ul>
 							<li>Mahasiswa semester 6</li>
 							<li>Tidak memiliki mata kuliah error</li>
-							<li>Minimal IPK 3.00</li>
+							<li>Minimal IPK {pengaturan?.ipk}</li>
 							<li>Sudah lulus semua mata kuliah wajib</li>
-							<li>Total 100 sks</li>
+							<li>Total {pengaturan?.sks} sks</li>
 							<li>Mendapat persetujuan topik dari dosen PA</li>
 						</ul>
 					</div>
@@ -176,7 +186,10 @@ export const NewestLanding = () => {
 								</option>
 								{prodi &&
 									prodi.map((item) => (
-										<option key={item.uuid} value={item.uuid}>
+										<option
+											key={item.uuid}
+											value={item.uuid}
+										>
 											{item.name}
 										</option>
 									))}
