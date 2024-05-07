@@ -5,7 +5,7 @@ export const KajurLinks = () => {
 	return (
 		<>
 			<Sidebar.HeaderLink>Kajur</Sidebar.HeaderLink>
-			<Sidebar.Link path={"/home/admin"} icon={"fa-user"}>
+			<Sidebar.Link path={"/home/kajur"} icon={"fa-user"}>
 				Dashboard
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Master</Sidebar.HeaderLink>

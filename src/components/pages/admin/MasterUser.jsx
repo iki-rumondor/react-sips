@@ -33,7 +33,7 @@ export const MasterUser = () => {
 		try {
 			setIsLoading(true);
 			const res = await fetchAPI("/api/users");
-			setUser(sortJSON(res?.data, "role_id", "desc"));
+			setUser(sortJSON(res?.data, "role", "asc"));
 			setHasKajur(filterHasKajur(res?.data));
 		} catch (error) {
 			toast.error(error.message);
