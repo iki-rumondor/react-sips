@@ -8,7 +8,7 @@ import useLoading from "../../hooks/useLoading";
 import { filterMahasiswa } from "../../utils/Helpers";
 
 export const PotensiDo = () => {
-	const data = [
+	const dummy = [
 		{
 			uuid: "uuid",
 			nama: "Masita Manangin",
@@ -44,30 +44,32 @@ export const PotensiDo = () => {
 
 	const handleLoad = async () => {
 		try {
-			const uuid = sessionStorage.getItem("uuid");
-			const res = await fetchAPI(`/api/mahasiswa/penasihat/${uuid}`);
+			const res = await fetchAPI(
+				`/api/mahasiswa/potensial-do/${sessionStorage.getItem("uuid")}`
+			);
 			setMahasiswa(filterMahasiswa("potensial_do", res.data));
 		} catch (error) {
 			toast.error(error?.message);
 		}
 	};
 
-	const handleSubmit = async () => {
+	const handlePeringatan = async () => {
 		const data = {
-			uuid_mahasiswa: selectedUuid,
-			uuid_pembimbing: sessionStorage.getItem("uuid"),
+			mahasiswa_uuid: selectedUuid,
+			pembimbing_uuid: sessionStorage.getItem("uuid"),
+			status: 1,
+			message:
+				values.message !== "Lain-lain" ? values.message : customMessage,
 		};
+
 		try {
 			setOpen(!open);
 			setIsLoading(true);
 			setIsSuccess(false);
-			const res = await postData(
-				`/api/mahasiswa/rekomendasi`,
-				"PATCH",
-				data
-			);
+			const res = await postData(`/api/message`, "POST", data);
 			setIsSuccess(true);
 			toast.success(res?.message);
+			setValues(defaultValue);
 		} catch (error) {
 			toast.error(error?.message);
 		} finally {
@@ -95,8 +97,8 @@ export const PotensiDo = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{data &&
-									data.map((item, idx) => {
+								{mahasiswa &&
+									mahasiswa.map((item, idx) => {
 										return (
 											<tr key={idx}>
 												<td>{idx + 1}</td>
@@ -178,7 +180,7 @@ export const PotensiDo = () => {
 						)}
 					</Modal.Body>
 					<Modal.Footer>
-						<Button variant="success" onClick={handleSubmit}>
+						<Button variant="success" onClick={handlePeringatan}>
 							Setuju
 						</Button>
 						<Button

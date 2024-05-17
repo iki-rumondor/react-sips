@@ -6,12 +6,15 @@ import { fetchAPI } from "../../utils/Fetching";
 import { MahasiswaProfile } from "../../layout/MahasiswaProfile";
 import { HeroSection } from "../../module/Hero";
 import { setPeringatan } from "../../utils/Helpers";
-import { Card, CardBody, CardHeader } from "react-bootstrap";
+import { Card, CardBody, CardFooter, CardHeader } from "react-bootstrap";
+import { ListKeyValue } from "../../module/List";
+import moment from "moment";
 
 export const DashboardMahasiswa = () => {
 	const uuid = sessionStorage.getItem("uuid");
 	const { setIsLoading, isSuccess } = useLoading();
 	const [data, setData] = useState(null);
+	const [message, setMessage] = useState(null);
 	const year = new Date().getFullYear();
 
 	const peringatan = [
@@ -24,7 +27,9 @@ export const DashboardMahasiswa = () => {
 		try {
 			setIsLoading(true);
 			const res = await fetchAPI(`/api/mahasiswa/user/${uuid}`);
+			const res2 = await fetchAPI(`/api/message/${uuid}`);
 			setData(res.data);
+			setMessage(res2.data);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -77,6 +82,27 @@ export const DashboardMahasiswa = () => {
 									Anda Direkomendasikan Oleh Pembimbing
 									Akademik Untuk Masuk Ke Program Percepatan
 								</CardBody>
+							</Card>
+						</div>
+					</div>
+				)}
+
+				{message && (
+					<div className="row">
+						<div className="col-12">
+							<Card
+								className="border-danger"
+								style={{ borderLeft: "3px solid" }}
+							>
+								<CardHeader>
+									<h4 className="text-danger">Peringatan!!! Kamu Masuk Dalam Mahasiswa Berpotensi Drop Out</h4>
+								</CardHeader>
+								<CardBody>
+									Pesan Dari PA: <b>{message.message}</b>
+								</CardBody>
+								<CardFooter>
+									{moment.unix(message.created_at / 1000).fromNow()}
+								</CardFooter>
 							</Card>
 						</div>
 					</div>
