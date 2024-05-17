@@ -91,9 +91,12 @@ export const NewestLanding = () => {
 				style={{ minHeight: "80vh" }}
 			>
 				<div className="col-sm-6">
-					<div className="h3 font-weight-bold text-dark mb-3">
-						Sistem Informasi Percepatan Studi Peringatan Masa Studi
-						& Pengelolaan Kelas di Jurusan Teknik Informatika UNG
+					<div
+						className="h3 font-weight-bold text-dark mb-3"
+						style={{ fontSize: "48 px", lineHeight:"40px" }}
+					>
+						Sistem Informasi Percepatan Studi dan Peringatan Drop
+						Out Jurusan Teknik Informatika
 					</div>
 					<div>
 						Program percepatan studi adalah program yang memberikan
@@ -103,9 +106,9 @@ export const NewestLanding = () => {
 					</div>
 					<a
 						href="#syarat"
-						className="btn btn-lg btn-primary mt-4 px-5 py-2"
+						className="btn btn-lg btn-primary mt-4 px-3 py-2"
 					>
-						Get Started
+						Syarat Percepatan Studi
 					</a>
 				</div>
 				<div className="col-sm-6 text-center">
@@ -121,7 +124,7 @@ export const NewestLanding = () => {
 						key={item.name}
 						className="shadow p-4 d-flex align-items-center rounded-lg col-sm-3 col-12 mr-sm-3 mb-3 mb-sm-0"
 					>
-						<div className="mr-3" style={{ width: "50px" }}>
+						<div className="mr-3" style={{ width: "30px" }}>
 							<img
 								src={`/src/assets/img/${item.icon}`}
 								className="w-100"

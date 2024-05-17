@@ -2,12 +2,36 @@ import React, { useEffect, useState } from "react";
 import { fetchAPI, postData } from "../../utils/Fetching";
 import toast from "react-hot-toast";
 import DashboardLayout from "../DashboardLayout";
-import { Button, Card, CardBody, Modal, Table } from "react-bootstrap";
+import { Button, Card, CardBody, Form, Modal, Table } from "react-bootstrap";
 import DetailMahasiswa from "./DetailMahasiswa";
 import useLoading from "../../hooks/useLoading";
 import { filterMahasiswa } from "../../utils/Helpers";
 
 export const PotensiDo = () => {
+	const data = [
+		{
+			uuid: "uuid",
+			nama: "Masita Manangin",
+			nim: "531420081",
+			angkatan: 2020,
+		},
+	];
+
+	const pesan = [
+		"Segera Menghadap Ke Dosen PA",
+		"Selesaikan Masalah Mata Kuliah",
+		"Lain-lain",
+	];
+
+	const defaultValue = {
+		uuid: "",
+		status: "",
+		message: "",
+	};
+
+	const [values, setValues] = useState(defaultValue);
+	const [customMessage, setCustomMessage] = useState("");
+
 	const { setIsLoading, isSuccess, setIsSuccess } = useLoading();
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [selectedUuid, setSelectedUuid] = useState("");
@@ -71,8 +95,8 @@ export const PotensiDo = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{mahasiswa &&
-									mahasiswa.map((item, idx) => {
+								{data &&
+									data.map((item, idx) => {
 										return (
 											<tr key={idx}>
 												<td>{idx + 1}</td>
@@ -80,6 +104,17 @@ export const PotensiDo = () => {
 												<td>{item.nama}</td>
 												<td>{item.angkatan}</td>
 												<td>
+													<Button
+														className="mr-1 btn-sm"
+														variant="danger"
+														onClick={() =>
+															handleOpen(
+																item.uuid
+															)
+														}
+													>
+														Peringatan
+													</Button>
 													<DetailMahasiswa
 														uuid={item.uuid}
 													/>
@@ -98,11 +133,49 @@ export const PotensiDo = () => {
 					keyboard={false}
 				>
 					<Modal.Header closeButton>
-						<Modal.Title>Rekomendasi Mahasiswa</Modal.Title>
+						<Modal.Title>Peringatan Mahasiswa</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						Apakah Anda Ingin Merekomendasikan Mahasiswa Tersebut
-						Untuk Masuk Percepatan??
+						<div>
+							Pilih Pesan Peringatan Yang Ingin Disampaikan Ke
+							Mahasiswa
+						</div>
+						<Form.Group controlId="pesan" className="mb-3">
+							<Form.Label>Pesan</Form.Label>
+							<Form.Control
+								as="select"
+								value={values.message}
+								onChange={(e) =>
+									setValues({
+										...values,
+										message: e.target.value,
+									})
+								}
+							>
+								<option value="" disabled>
+									Pilih Pesan
+								</option>
+								{pesan.map((item) => (
+									<option>{item}</option>
+								))}
+							</Form.Control>
+						</Form.Group>
+						{values.message == "Lain-lain" && (
+							<Form.Group
+								controlId="customMassage"
+								className="mb-3"
+							>
+								<Form.Label>Masukkan Pesan</Form.Label>
+								<Form.Control
+									value={customMessage}
+									as={"textarea"}
+									rows={3}
+									onChange={(e) =>
+										setCustomMessage(e.target.value)
+									}
+								/>
+							</Form.Group>
+						)}
 					</Modal.Body>
 					<Modal.Footer>
 						<Button variant="success" onClick={handleSubmit}>
