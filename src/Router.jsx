@@ -34,6 +34,7 @@ import { MahasiswaPotensial } from "./components/pages/penasihat/Potensial";
 import { RekomendasiPA } from "./components/pages/kaprodi/Rekomendasi";
 import { PotensiDo } from "./components/pages/penasihat/PotensiDo";
 import { DashboardAdmin } from "./components/pages/dashboard/Admin";
+import { SyaratPercepatan } from "./components/pages/landing/mahasiswa/Syarat";
 
 export const Router = () => {
 	return (
@@ -126,6 +127,7 @@ export const Router = () => {
 				</Route>
 				<Route path="/" Component={NewestLanding} />
 				<Route path="/home/percepatan" Component={PercepatanLanding} />
+				<Route path="/home/syarat" Component={SyaratPercepatan} />
 				<Route path="/home/do" Component={DropoutLanding} />
 			</Routes>
 		</BrowserRouter>

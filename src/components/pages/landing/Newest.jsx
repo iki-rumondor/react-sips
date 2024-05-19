@@ -105,7 +105,7 @@ export const NewestLanding = () => {
 						dan Menyelesaikan Studi Tepat Pada Waktunya”
 					</div>
 					<a
-						href="#syarat"
+						href="/home/syarat"
 						className="btn btn-lg btn-primary mt-4 px-3 py-2"
 					>
 						Syarat Percepatan Studi
@@ -166,6 +166,7 @@ export const NewestLanding = () => {
 							<li>Sudah lulus semua mata kuliah wajib</li>
 							<li>Total {pengaturan?.sks} sks</li>
 							<li>Mendapat persetujuan topik dari dosen PA</li>
+							<li>Tidak memiliki nilai C (2.00) untuk cumlaude</li>
 						</ul>
 					</div>
 				</div>

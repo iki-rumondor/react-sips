@@ -10,6 +10,7 @@ export const Topbar = () => {
 		{ name: "Beranda", href: "/" },
 		{ name: "Percepatan Studi", href: "/home/percepatan" },
 		{ name: "Drop Out", href: "/home/do" },
+		{ name: "Syarat Percepatan", href: "/home/syarat" },
 	];
 	const loc = useLocation();
 	const role = sessionStorage.getItem("role");
