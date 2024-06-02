@@ -27,11 +27,21 @@ export const DashboardMahasiswa = () => {
 		try {
 			setIsLoading(true);
 			const res = await fetchAPI(`/api/mahasiswa/user/${uuid}`);
-			const res2 = await fetchAPI(`/api/message/${uuid}`);
 			setData(res.data);
-			setMessage(res2.data);
 		} catch (error) {
 			toast.error(error.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	const handleLoadMessage = async () => {
+		try {
+			setIsLoading(true);
+			const res2 = await fetchAPI(`/api/message/${uuid}`);
+			setMessage(res2.data);
+		} catch (error) {
+			console.log(error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -40,6 +50,10 @@ export const DashboardMahasiswa = () => {
 	useEffect(() => {
 		handleLoad();
 	}, [isSuccess]);
+
+	useEffect(() => {
+		handleLoadMessage();
+	}, []);
 
 	return (
 		<>
@@ -95,13 +109,18 @@ export const DashboardMahasiswa = () => {
 								style={{ borderLeft: "3px solid" }}
 							>
 								<CardHeader>
-									<h4 className="text-danger">Peringatan!!! Kamu Masuk Dalam Mahasiswa Berpotensi Drop Out</h4>
+									<h4 className="text-danger">
+										Peringatan!!! Kamu Masuk Dalam Mahasiswa
+										Berpotensi Drop Out
+									</h4>
 								</CardHeader>
 								<CardBody>
 									Pesan Dari PA: <b>{message.message}</b>
 								</CardBody>
 								<CardFooter>
-									{moment.unix(message.created_at / 1000).fromNow()}
+									{moment
+										.unix(message.created_at / 1000)
+										.fromNow()}
 								</CardFooter>
 							</Card>
 						</div>
