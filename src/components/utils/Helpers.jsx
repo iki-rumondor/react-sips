@@ -81,16 +81,22 @@ export const filterMahasiswa = (filter, data, option) => {
 	}
 
 	let result = sortJSON(data, "nim", "asc");
+	if (filter == "all") {
+		result = data.filter((item) => {
+			return item.prodi == option;
+		});
+	}
+
 	if (filter == "percepatan") {
 		result = sortJSON(data, "ipk", "desc").filter((item) => {
-			return item.percepatan;
+			return item.percepatan && item.prodi == option;
 		});
 	}
 
 	if (filter == "do") {
 		const currentYear = new Date().getFullYear();
 		result = data.filter((item) => {
-			return item.angkatan <= currentYear - 5;
+			return item.angkatan <= currentYear - 5 && item.prodi == option;
 		});
 	}
 
@@ -130,6 +136,12 @@ export const filterMahasiswa = (filter, data, option) => {
 	if (filter == "pembagian_kelas") {
 		result = data.filter((item) => {
 			return item.angkatan >= option;
+		});
+	}
+
+	if (filter == "prodi") {
+		result = data.filter((item) => {
+			return item.prodi == option;
 		});
 	}
 

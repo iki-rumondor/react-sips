@@ -79,7 +79,7 @@ export default function MahasiswaAll() {
 
 	return (
 		<>
-			<DashboardLayout header={"Data Mahasiswa Sistem Informasi"}>
+			<DashboardLayout header={"Data Mahasiswa"}>
 				<Card>
 					<CardBody>
 						<Form.Group controlId="filter" className="mb-3">

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, CardBody, Form, Table } from "react-bootstrap";
 import { fetchAPI, pdfAPI } from "../../utils/Fetching";
 import toast from "react-hot-toast";
-import { filterMahasiswa, generateYearArray, sortJSON, yearNowFrom } from "../../utils/Helpers";
+import {
+	filterMahasiswa,
+	generateYearArray,
+	sortJSON,
+	yearNowFrom,
+} from "../../utils/Helpers";
 import useLoading from "../../hooks/useLoading";
 import DashboardLayout from "../DashboardLayout";
 
@@ -10,6 +15,8 @@ export const KelasJurusan = () => {
 	const { setIsLoading } = useLoading();
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [values, setValues] = useState(null);
+	const [prodi, setProdi] = useState(null);
+	const [selectProdi, setSelectProdi] = useState("");
 	const [classes, setClasses] = useState(null);
 	const [options, setOptions] = useState({
 		angkatan: "",
@@ -27,6 +34,9 @@ export const KelasJurusan = () => {
 			setIsLoading(true);
 			const res2 = await fetchAPI("/api/pengaturan/angkatan_kelas");
 			const batasAngkatan = res2.data.value;
+
+			const res3 = await fetchAPI(`/api/prodi`);
+			setProdi(res3?.data);
 
 			const res = await fetchAPI(`/api/mahasiswa`);
 			res?.data && sortJSON(res.data, "nim", "asc");
@@ -52,7 +62,13 @@ export const KelasJurusan = () => {
 	};
 
 	const handleFilter = () => {
-		setValues(filterMahasiswa("kelas", mahasiswa, options));
+		setValues(
+			filterMahasiswa(
+				"kelas",
+				filterMahasiswa("prodi", mahasiswa, selectProdi),
+				options
+			)
+		);
 	};
 
 	const handlePrint = async () => {
@@ -72,7 +88,7 @@ export const KelasJurusan = () => {
 
 	useEffect(() => {
 		handleFilter();
-	}, [options]);
+	}, [options, selectProdi]);
 
 	return (
 		<DashboardLayout header={"Kelas Mahasiswa"}>
@@ -121,9 +137,33 @@ export const KelasJurusan = () => {
 							</Form.Group>
 						</div>
 					</div>
+					<div className="row">
+						<div className="col-12">
+							<Form.Group controlId="prodi" className="mb-3">
+								<Form.Label>Program Studi</Form.Label>
+								<Form.Control
+									as="select"
+									value={selectProdi}
+									onChange={(e) => {
+										setSelectProdi(e.target.value);
+									}}
+								>
+									<option value="" disabled>
+										Pilih Program Studi
+									</option>
+									{prodi &&
+										prodi.map((item, idx) => (
+											<option key={idx} value={item.name}>
+												{item.name}
+											</option>
+										))}
+								</Form.Control>
+							</Form.Group>
+						</div>
+					</div>
 				</CardBody>
 			</Card>
-			{values?.length > 0 ? (
+			{selectProdi && values?.length > 0 ? (
 				<>
 					<Card>
 						<CardBody>

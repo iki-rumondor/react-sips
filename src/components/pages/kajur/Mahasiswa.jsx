@@ -22,23 +22,27 @@ export default function MahasiswaJurusan() {
 	const [mahasiswa, setMahasiswa] = useState(null);
 	const [values, setValues] = useState(null);
 	const { setIsLoading } = useLoading();
-	const [filter, setFilter] = useState("");
+	const [filter, setFilter] = useState("all");
+	const [selectProdi, setSelectProdi] = useState("");
+	const [prodi, setProdi] = useState(null);
 	const [keyword, setKeyword] = useState("");
 	const options = [
-		{ name: "Semua Mahasiswa", value: "" },
+		{ name: "Semua Mahasiswa", value: "all" },
 		{ name: "Mahasiswa Percepatan", value: "percepatan" },
 		{ name: "Mahasiswa Terancam Drop Out", value: "do" },
 	];
 
 	const handleChange = () => {
-		setValues(filterMahasiswa(filter, mahasiswa));
+		setValues(filterMahasiswa(filter, mahasiswa, selectProdi));
 	};
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
 			const res = await fetchAPI(`/api/mahasiswa`);
+			const res2 = await fetchAPI(`/api/prodi`);
 			setValues(res?.data);
+			setProdi(res2?.data);
 			setMahasiswa(res?.data);
 		} catch (error) {
 			toast.error(error?.message);
@@ -79,7 +83,7 @@ export default function MahasiswaJurusan() {
 
 	useEffect(() => {
 		handleChange();
-	}, [filter]);
+	}, [filter, selectProdi]);
 
 	return (
 		<>
@@ -93,7 +97,6 @@ export default function MahasiswaJurusan() {
 								value={filter}
 								onChange={(e) => {
 									setFilter(e.target.value);
-									handleChange();
 								}}
 							>
 								{options.map((item, idx) => (
@@ -103,9 +106,29 @@ export default function MahasiswaJurusan() {
 								))}
 							</Form.Control>
 						</Form.Group>
+						<Form.Group controlId="prodi" className="mb-3">
+							<Form.Label>Program Studi</Form.Label>
+							<Form.Control
+								as="select"
+								value={selectProdi}
+								onChange={(e) => {
+									setSelectProdi(e.target.value);
+								}}
+							>
+								<option value="" disabled>
+									Pilih Program Studi
+								</option>
+								{prodi &&
+									prodi.map((item, idx) => (
+										<option key={idx} value={item.name}>
+											{item.name}
+										</option>
+									))}
+							</Form.Control>
+						</Form.Group>
 					</CardBody>
 				</Card>
-				{values?.length > 0 ? (
+				{selectProdi && values?.length > 0 ? (
 					<>
 						<Card>
 							<CardBody>
