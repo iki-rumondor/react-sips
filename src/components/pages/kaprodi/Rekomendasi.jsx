@@ -6,6 +6,7 @@ import DetailMahasiswa from "./DetailMahasiswa";
 import toast from "react-hot-toast";
 import { fetchAPI } from "../../utils/Fetching";
 import { filterMahasiswa } from "../../utils/Helpers";
+import moment from "moment";
 
 export const RekomendasiPA = () => {
 	const { setIsLoading, isSuccess, setIsSuccess } = useLoading();
@@ -44,9 +45,9 @@ export const RekomendasiPA = () => {
 						<thead>
 							<tr>
 								<th>No</th>
-								<th>NIM</th>
 								<th>Nama Mahasiswa</th>
 								<th>Dosen PA </th>
+								<th>Direkomendasikan Pada</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -56,9 +57,9 @@ export const RekomendasiPA = () => {
 									return (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.nim}</td>
 											<td>{item.nama}</td>
 											<td>{item.pembimbing.nama}</td>
+											<td>{moment.unix(item.created_at / 1000).format("DD-MM-YYYY")}</td>
 											<td>
 												<DetailMahasiswa
 													uuid={item.uuid}
