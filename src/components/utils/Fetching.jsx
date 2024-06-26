@@ -2,10 +2,13 @@ import axios from "axios";
 import useSWR from "swr";
 
 const accessToken = sessionStorage.getItem("token");
-const baseAPIUrl = process.env.REACT_APP_GO_API_URL;
-const pdfAPIUrl = process.env.REACT_APP_PDF_API_URL;
+// const baseAPIUrl = process.env.REACT_APP_GO_API_URL;
+// const pdfAPIUrl = process.env.REACT_APP_PDF_API_URL;
 // const baseAPIUrl = "http://localhost:8080";
 // const pdfAPIUrl = "http://localhost:8000/api/pdf/sips";
+
+const baseAPIUrl = "http://103.26.13.166:8080";
+const pdfAPIUrl = "http://103.26.13.166:8000/api/pdf/sips";
 
 const fetcher = async (url) => {
 	const response = await fetch(`${baseAPIUrl}${url}`, {
